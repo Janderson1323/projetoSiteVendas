@@ -1,0 +1,26 @@
+# Arquivos de build e dependências
+target/
+build/
+bin/
+*.class
+*.jar
+*.war
+*.ear
+
+# Arquivos de IDE (IntelliJ, Eclipse, VS Code)
+.idea/
+*.iml
+*.iws
+.settings/
+.project
+.classpath
+.metadata/
+.vscode/
+
+# Arquivos de sistema e logs
+.DS_Store
+Thumbs.db
+*.log
+
+# Variáveis de ambiente e segredos
+.env
