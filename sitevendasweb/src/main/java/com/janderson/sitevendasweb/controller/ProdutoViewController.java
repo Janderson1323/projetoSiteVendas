@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.janderson.sitevendasweb.entity.Produto;
@@ -20,16 +21,29 @@ public class ProdutoViewController {
         model.addAttribute("produtos", produtoService.listarProdutos());
         return "produtos";
     }
+
     @GetMapping("/admin/produtos/novo")
-    public String novoProduto() {
+    public String novoProduto(Model model) {
+        model.addAttribute("produto", new Produto());
         return "produto-form";
     }
-    
+
     @PostMapping("/admin/produtos/salvar")
     public String salvarProduto(Produto produto) {
         produtoService.salvarProduto(produto);
         return "redirect:/admin/produtos";
     }
 
+    @GetMapping("/admin/produtos/editar/{id}")
+    public String editarProduto(@PathVariable Long id, Model model) {
+        Produto produto = produtoService.buscarProdutoPorId(id);
+        model.addAttribute("produto", produto);
+        return "produto-form";
+    }
 
+    @PostMapping("/admin/produtos/excluir/{id}")
+    public String excluirProduto(@PathVariable Long id) {
+        produtoService.deletarProduto(id);
+        return "redirect:/admin/produtos";
+    }
 }

@@ -6,31 +6,52 @@
 </head>
 <body>
 
-    <h1>Lista de Produtos</h1>
-	<a href="/admin/produtos/novo">Novo Produto</a>
+<h1>Lista de Produtos</h1>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Preço</th>
-                <th>Estoque</th>
-                <th>Ativo</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="produto : ${produtos}">
-                <td th:text="${produto.id}"></td>
-                <td th:text="${produto.nome}"></td>
-                <td th:text="${produto.descricao}"></td>
-                <td th:text="${produto.preco}"></td>
-                <td th:text="${produto.estoque}"></td>
-                <td th:text="${produto.ativo}"></td>
-            </tr>
-        </tbody>
-    </table>
+<a href="/admin/produtos/novo">Novo Produto</a>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+            <th>Ativo</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="produto : ${produtos}">
+
+            <td th:text="${produto.id}"></td>
+            <td th:text="${produto.nome}"></td>
+            <td th:text="${produto.descricao}"></td>
+            <td th:text="${produto.preco}"></td>
+            <td th:text="${produto.estoque}"></td>
+            <td th:text="${produto.ativo}"></td>
+
+            <td>
+                <a th:href="@{'/admin/produtos/editar/' + ${produto.id}}">Editar</a>
+
+                <form th:action="@{'/admin/produtos/excluir/' + ${produto.id}}"
+                      method="post"
+                      style="display:inline;">
+
+                    <button type="submit"
+                            onclick="return confirm('Tem certeza que deseja excluir este produto?')">
+                        Excluir
+                    </button>
+
+                </form>
+            </td>
+
+        </tr>
+    </tbody>
+
+</table>
 
 </body>
 </html>
