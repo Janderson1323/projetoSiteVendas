@@ -19,6 +19,10 @@ public class Carrinho {
         if (produto == null) {
             throw new IllegalArgumentException("Produto inválido.");
         }
+        
+        if (!produto.estaAtivo()) {
+            throw new IllegalArgumentException("Produto inativo.");
+        }
 
         // Verifica se o produto já está no carrinho
         ItemPedido existente = null;
@@ -52,6 +56,11 @@ public class Carrinho {
     }
 
     public void removerItem(Produto produto) {
+
+        if (produto == null) {
+            throw new IllegalArgumentException("Produto inválido.");
+        }
+
         itens.removeIf(item -> item.getProduto().equals(produto));
     }
 
@@ -67,5 +76,9 @@ public class Carrinho {
 
     public List<ItemPedido> getItens() {
         return new ArrayList<>(itens);
+    }
+    
+    public void limparCarrinho() {
+        itens.clear();
     }
 }

@@ -41,7 +41,7 @@ public class PedidoService {
         }
 
         pedidos.add(pedido);
-
+        carrinho.limparCarrinho();
         return pedido;
     }
 

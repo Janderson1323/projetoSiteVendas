@@ -11,6 +11,15 @@ public class ItemPedido {
     }
 
     public ItemPedido(Long id, Produto produto, Integer quantidade) {
+
+        if (produto == null) {
+            throw new IllegalArgumentException("Produto inválido.");
+        }
+
+        if (quantidade == null || quantidade <= 0) {
+            throw new IllegalArgumentException("Quantidade inválida.");
+        }
+
         this.id = id;
         this.produto = produto;
         this.quantidade = quantidade;
@@ -34,6 +43,11 @@ public class ItemPedido {
     }
 
     public void setQuantidade(Integer quantidade) {
+
+        if (quantidade == null || quantidade <= 0) {
+            throw new IllegalArgumentException("Quantidade inválida.");
+        }
+
         this.quantidade = quantidade;
     }
 
