@@ -1,26 +1,34 @@
-# Arquivos de build e dependências
-target/
-build/
-bin/
+# Compiled class files
 *.class
-*.jar
-*.war
-*.ear
 
-# Arquivos de IDE (IntelliJ, Eclipse, VS Code)
-.idea/
-*.iml
-*.iws
-.settings/
-.project
-.classpath
-.metadata/
-.vscode/
-
-# Arquivos de sistema e logs
-.DS_Store
-Thumbs.db
+# Log files
 *.log
 
-# Variáveis de ambiente e segredos
-.env
+# Eclipse files
+.project
+.classpath
+.settings/
+
+# IntelliJ files
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Build folders
+bin/
+build/
+target/
+out/
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
