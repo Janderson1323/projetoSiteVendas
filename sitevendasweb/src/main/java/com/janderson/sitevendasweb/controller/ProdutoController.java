@@ -1,66 +1,41 @@
 package com.janderson.sitevendasweb.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.janderson.sitevendasweb.entity.Produto;
-import com.janderson.sitevendasweb.repository.ProdutoRepository;
-import org.springframework.web.bind.annotation.PutMapping;
+import com.janderson.sitevendasweb.service.ProdutoService;
 
 @RestController
 public class ProdutoController {
 
     @Autowired
-    private ProdutoRepository produtoRepository;
+    private ProdutoService produtoService;
 
     @GetMapping("/produtos")
     public List<Produto> listarProdutos() {
-        return produtoRepository.findAll();
+        return produtoService.listarProdutos();
     }
 
     @PostMapping("/produtos")
     public Produto salvarProduto(@RequestBody Produto produto) {
-        return produtoRepository.save(produto);
+        return produtoService.salvarProduto(produto);
     }
 
     @GetMapping("/produtos/{id}")
     public Produto buscarProdutoPorId(@PathVariable Long id) {
-        Optional<Produto> produto = produtoRepository.findById(id);
-        return produto.orElse(null);
+        return produtoService.buscarProdutoPorId(id);
     }
-    
-    @DeleteMapping("/produtos/{id}")
-    public void deletarProduto(@PathVariable Long id) {
-        produtoRepository.deleteById(id);
-    }
-    
+
     @PutMapping("/produtos/{id}")
     public Produto atualizarProduto(@PathVariable Long id, @RequestBody Produto produtoAtualizado) {
-
-        Optional<Produto> produtoExistente = produtoRepository.findById(id);
-
-        if (produtoExistente.isPresent()) {
-            Produto produto = produtoExistente.get();
-
-            produto.setNome(produtoAtualizado.getNome());
-            produto.setDescricao(produtoAtualizado.getDescricao());
-            produto.setPreco(produtoAtualizado.getPreco());
-            produto.setEstoque(produtoAtualizado.getEstoque());
-            produto.setAtivo(produtoAtualizado.getAtivo());
-
-            return produtoRepository.save(produto);
-        }
-
-        return null;
+        return produtoService.atualizarProduto(id, produtoAtualizado);
     }
 
-
+    @DeleteMapping("/produtos/{id}")
+    public void deletarProduto(@PathVariable Long id) {
+        produtoService.deletarProduto(id);
+    }
 }
