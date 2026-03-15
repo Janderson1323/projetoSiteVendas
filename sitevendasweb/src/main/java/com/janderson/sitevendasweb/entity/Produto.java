@@ -2,6 +2,8 @@ package com.janderson.sitevendasweb.entity;
 
 import jakarta.persistence.*;
 
+
+
 @Entity
 @Table(name = "produtos")
 public class Produto {
@@ -19,7 +21,8 @@ public class Produto {
     private Integer estoque;
 
     private Boolean ativo;
-
+    private String granulometria;
+    
     public Produto() {
     }
 
