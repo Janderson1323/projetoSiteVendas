@@ -28,7 +28,11 @@
         </thead>
         <tbody>
             <tr th:each="pedido : ${pedidos}">
-                <td th:text="${pedido.id}"></td>
+				<td>
+				<a th:href="@{'/admin/pedidos/' + ${pedido.id}}"
+				   th:text="${pedido.id}">
+				</a>
+				</td>
                 <td th:text="${pedido.dataPedido}"></td>
                 <td th:text="${pedido.status}"></td>
                 <td th:text="${pedido.valorTotal}"></td>

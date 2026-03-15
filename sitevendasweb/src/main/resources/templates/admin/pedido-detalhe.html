@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Detalhe do Pedido</title>
+</head>
+
+<body>
+
+<h1>Detalhe do Pedido</h1>
+
+<p>
+<b>ID:</b> <span th:text="${pedido.id}"></span>
+</p>
+
+<p>
+<b>Data:</b> <span th:text="${pedido.dataPedido}"></span>
+</p>
+
+<p>
+<b>Status:</b> <span th:text="${pedido.status}"></span>
+</p>
+
+<p>
+<b>Total:</b> <span th:text="${pedido.valorTotal}"></span>
+</p>
+
+<br>
+
+<h2>Itens do Pedido</h2>
+
+<table border="1" cellpadding="10">
+
+<tr>
+<th>Produto</th>
+<th>Quantidade</th>
+<th>Preço</th>
+</tr>
+
+<tr th:each="item : ${pedido.itens}">
+<td th:text="${item.produto.nome}"></td>
+<td th:text="${item.quantidade}"></td>
+<td th:text="${item.precoUnitario}"></td>
+</tr>
+
+</table>
+
+<br>
+
+<a href="/admin/pedidos">Voltar</a>
+
+</body>
+</html>

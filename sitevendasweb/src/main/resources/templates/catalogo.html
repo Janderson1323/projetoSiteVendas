@@ -16,8 +16,13 @@
     <div class="row g-4">
         <div class="col-md-6 col-lg-4" th:each="produto : ${produtos}">
             <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h4 class="card-title" th:text="${produto.nome}"></h4>
+				<div class="card-body">
+				    <img th:src="${produto.imagemUrl}"
+				         alt="Imagem do produto"
+				         class="img-fluid rounded mb-3"
+				         style="height: 200px; width: 100%; object-fit: cover;">
+
+				    <h4 class="card-title" th:text="${produto.nome}"></h4>
                     <p class="card-text" th:text="${produto.descricao}"></p>
 
                     <p class="mb-2">
@@ -30,11 +35,16 @@
                         <span th:text="${produto.estoque}"></span> kg
                     </p>
 
-                    <a th:href="@{'https://wa.me/55SEUNUMEROAQUI?text=Olá,%20tenho%20interesse%20no%20produto:%20' + ${produto.nome}}"
-                       class="btn btn-success w-100"
-                       target="_blank">
-                        Comprar pelo WhatsApp
-                    </a>
+					<a th:href="@{'https://wa.me/55SEUNUMEROAQUI?text=Olá,%20tenho%20interesse%20no%20produto:%20' + ${produto.nome}}"
+					   class="btn btn-success w-100 mb-2"
+					   target="_blank">
+					    Comprar pelo WhatsApp
+					</a>
+
+					<a th:href="@{'/carrinho/adicionar/' + ${produto.id}}"
+					   class="btn btn-primary w-100">
+					    Adicionar ao Carrinho
+					</a>
                 </div>
             </div>
         </div>

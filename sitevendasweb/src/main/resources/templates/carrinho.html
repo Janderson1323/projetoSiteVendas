@@ -20,20 +20,37 @@
 <th>Produto</th>
 <th>Quantidade</th>
 <th>Preço Unitário</th>
+<th>Ação</th>
 </tr>
 </thead>
 
 <tbody>
 
-<tr th:each="item : ${itens}">
+<tr th:each="item, iterStat : ${itens}">
 <td th:text="${item.produto.nome}"></td>
 <td th:text="${item.quantidade}"></td>
-<td th:text="${item.precoUnitario}"></td>
+<td th:text="${item.precoUnitario}"></td><td>
+    <a th:href="@{'/carrinho/remover/' + ${iterStat.index}}">
+        Remover
+    </a>
+</td>
+
 </tr>
+
+
+
 
 </tbody>
 
 </table>
+<br>
+
+<h3>Total: <span th:text="${total}"></span></h3>
+<form action="/carrinho/finalizar" method="post">
+    <button type="submit">Finalizar Pedido</button>
+</form>
+
+
 
 </body>
 </html>

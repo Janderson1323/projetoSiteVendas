@@ -41,6 +41,14 @@
                             <label class="form-label">Estoque</label>
                             <input type="number" th:field="*{estoque}" class="form-control">
                         </div>
+						
+						<div class="mb-3">
+						    <label>Imagem URL</label>
+						    <input type="text"
+						           class="form-control"
+						           th:field="*{imagemUrl}"
+						           placeholder="Cole aqui o link da imagem">
+						</div>
 
                         <div class="form-check mb-4">
                             <input type="checkbox" th:field="*{ativo}" class="form-check-input">

@@ -1,6 +1,10 @@
 package com.janderson.sitevendasweb.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
 
@@ -11,21 +15,24 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
-
     private String descricao;
-
     private Double preco;
-
     private Integer estoque;
-
     private Boolean ativo;
-    private String granulometria;
+    private String imagemUrl;
     
     public Produto() {
     }
 
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
+    }
+    
     public Produto(Long id, String nome, String descricao, Double preco, Integer estoque, Boolean ativo) {
         this.id = id;
         this.nome = nome;

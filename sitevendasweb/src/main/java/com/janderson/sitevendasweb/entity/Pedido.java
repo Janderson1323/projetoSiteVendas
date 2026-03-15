@@ -1,15 +1,16 @@
 package com.janderson.sitevendasweb.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 
 @Entity
-@Table(name = "pedidos")
 public class Pedido {
 
     @Id
@@ -22,8 +23,8 @@ public class Pedido {
 
     private Double valorTotal;
 
-    public Pedido() {
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ItemPedido> itens;
 
     public Long getId() {
         return id;
@@ -51,5 +52,13 @@ public class Pedido {
 
     public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
     }
 }
