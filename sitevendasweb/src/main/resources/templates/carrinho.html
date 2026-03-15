@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Carrinho</title>
+</head>
+
+<body>
+
+<h1>Seu Carrinho</h1>
+
+<a href="/catalogo">Continuar Comprando</a>
+
+<br><br>
+
+<table border="1" cellpadding="10">
+
+<thead>
+<tr>
+<th>Produto</th>
+<th>Quantidade</th>
+<th>Preço Unitário</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr th:each="item : ${itens}">
+<td th:text="${item.produto.nome}"></td>
+<td th:text="${item.quantidade}"></td>
+<td th:text="${item.precoUnitario}"></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Pedidos</title>
+</head>
+<body>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h1 style="margin: 0;">Lista de Pedidos</h1>
+
+        <div>
+            <a href="/admin"
+               style="text-decoration: none; background: #6c757d; color: white; padding: 10px 15px; border-radius: 5px;">
+                Painel Admin
+            </a>
+        </div>
+    </div>
+
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data do Pedido</th>
+                <th>Status</th>
+                <th>Valor Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pedido : ${pedidos}">
+                <td th:text="${pedido.id}"></td>
+                <td th:text="${pedido.dataPedido}"></td>
+                <td th:text="${pedido.status}"></td>
+                <td th:text="${pedido.valorTotal}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -13,9 +13,12 @@ public class CatalogoController {
     @Autowired
     private ProdutoService produtoService;
 
-    @GetMapping("/produtos")
+    @GetMapping("/catalogo")
     public String catalogo(Model model) {
+
         model.addAttribute("produtos", produtoService.listarProdutos());
+
         return "catalogo";
     }
+
 }

@@ -19,13 +19,13 @@ public class ProdutoViewController {
     @GetMapping("/admin/produtos")
     public String listarProdutos(Model model) {
         model.addAttribute("produtos", produtoService.listarProdutos());
-        return "produtos";
+        return "admin/produtos";
     }
 
     @GetMapping("/admin/produtos/novo")
     public String novoProduto(Model model) {
         model.addAttribute("produto", new Produto());
-        return "produto-form";
+        return "admin/produto-form";
     }
 
     @PostMapping("/admin/produtos/salvar")
@@ -38,7 +38,7 @@ public class ProdutoViewController {
     public String editarProduto(@PathVariable Long id, Model model) {
         Produto produto = produtoService.buscarProdutoPorId(id);
         model.addAttribute("produto", produto);
-        return "produto-form";
+        return "admin/produto-form";
     }
 
     @PostMapping("/admin/produtos/excluir/{id}")
