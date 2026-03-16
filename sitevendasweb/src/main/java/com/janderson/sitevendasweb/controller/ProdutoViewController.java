@@ -43,7 +43,37 @@ public class ProdutoViewController {
 
     @PostMapping("/admin/produtos/excluir/{id}")
     public String excluirProduto(@PathVariable Long id) {
-        produtoService.deletarProduto(id);
+        Produto produto = produtoService.buscarProdutoPorId(id);
+
+        if (produto != null) {
+            produto.setAtivo(false);
+            produtoService.salvarProduto(produto);
+        }
+
+        return "redirect:/admin/produtos";
+    }
+
+    @GetMapping("/admin/produtos/ativar/{id}")
+    public String ativarProduto(@PathVariable Long id) {
+        Produto produto = produtoService.buscarProdutoPorId(id);
+
+        if (produto != null) {
+            produto.setAtivo(true);
+            produtoService.salvarProduto(produto);
+        }
+
+        return "redirect:/admin/produtos";
+    }
+
+    @GetMapping("/admin/produtos/desativar/{id}")
+    public String desativarProduto(@PathVariable Long id) {
+        Produto produto = produtoService.buscarProdutoPorId(id);
+
+        if (produto != null) {
+            produto.setAtivo(false);
+            produtoService.salvarProduto(produto);
+        }
+
         return "redirect:/admin/produtos";
     }
 }

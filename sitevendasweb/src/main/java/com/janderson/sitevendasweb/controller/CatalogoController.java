@@ -15,10 +15,13 @@ public class CatalogoController {
 
     @GetMapping("/catalogo")
     public String catalogo(Model model) {
-
-        model.addAttribute("produtos", produtoService.listarProdutos());
-
+        model.addAttribute("produtos",
+            produtoService.listarProdutos()
+                .stream()
+                .filter(produto -> Boolean.TRUE.equals(produto.getAtivo()))
+                .toList());
         return "catalogo";
+    
     }
 
 }
