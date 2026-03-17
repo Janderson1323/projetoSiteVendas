@@ -17,25 +17,21 @@ public class PedidoViewController {
     @Autowired
     private PedidoService pedidoService;
 
-    @GetMapping("/admin/pedidos")
-    public String listarPedidos(Model model) {
-        model.addAttribute("pedidos", pedidoService.listarPedidos());
-        return "admin/pedidos";
-    }
-    
     @GetMapping("/admin/pedidos/{id}")
-    public String detalhePedido(@PathVariable Long id, Model model) {
-
+    public String detalharPedido(@PathVariable Long id, Model model) {
         Pedido pedido = pedidoService.buscarPorId(id);
 
-        model.addAttribute("pedido", pedido);
+        if (pedido == null) {
+            return "redirect:/admin/pedidos";
+        }
 
+        model.addAttribute("pedido", pedido);
         return "admin/pedido-detalhe";
     }
     
     @PostMapping("/admin/pedidos/{id}/status")
     public String atualizarStatus(@PathVariable Long id,
-                                  @RequestParam("status") String status) {
+                                  @RequestParam String status) {
 
         Pedido pedido = pedidoService.buscarPorId(id);
 

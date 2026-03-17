@@ -45,4 +45,10 @@ public class AdminController {
 
         return "admin/index";
     }
+    
+    @GetMapping("/admin/pedidos")
+    public String listarPedidos(Model model) {
+        model.addAttribute("pedidos", pedidoService.listarPedidos());
+        return "admin/pedidos";
+    }
 }

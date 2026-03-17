@@ -2,107 +2,133 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Detalhe do Pedido</title>
+    <title>Detalhe do Pedido - GRANITINA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/admin">ADMIN - GRANITINA</a>
+
+        <div class="ms-auto">
+            <a href="/admin/pedidos" class="btn btn-outline-light btn-sm me-2">Voltar</a>
+            <a href="/logout" class="btn btn-danger btn-sm">Sair</a>
+        </div>
+    </div>
+</nav>
 
 <div class="container py-5">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="fw-bold">Detalhe do Pedido</h1>
-
-        <div class="d-flex gap-2">
-            <a href="/admin/pedidos" class="btn btn-secondary">Voltar</a>
-
-            <a th:href="@{'https://wa.me/55' + ${pedido.telefoneCliente} + '?text=Olá,%20' + ${pedido.nomeCliente} + ',%20aqui%20é%20da%20GRANITINA.%20Estou%20entrando%20em%20contato%20sobre%20o%20seu%20pedido%20número%20' + ${pedido.id}}"
-               class="btn btn-success"
-               target="_blank">
-                Falar no WhatsApp
-            </a>
-        </div>
-    </div>
-
-    <div class="row g-4">
-
-        <div class="col-md-5">
-            <div class="card shadow-sm">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Pedido #<span th:text="${pedido.id}"></span></h3>
+                </div>
                 <div class="card-body">
-                    <h4 class="mb-3">Informações do Pedido</h4>
 
-                    <p><strong>ID:</strong> <span th:text="${pedido.id}"></span></p>
-                    <p><strong>Data:</strong> <span th:text="${pedido.dataPedido}"></span></p>
-                    <p><strong>Status:</strong> <span th:text="${pedido.status}"></span></p>
-					<form th:action="@{'/admin/pedidos/' + ${pedido.id} + '/status'}" method="post" class="mt-3">
-					    <label class="form-label"><strong>Alterar Status</strong></label>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p><strong>Cliente:</strong> <span th:text="${pedido.nomeCliente}"></span></p>
+                            <p><strong>Telefone:</strong> <span th:text="${pedido.telefoneCliente}"></span></p>
+                            <p><strong>Cidade:</strong> <span th:text="${pedido.cidade}"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Endereço:</strong> <span th:text="${pedido.endereco}"></span></p>
+                            <p><strong>Data do Pedido:</strong> <span th:text="${pedido.dataPedido}"></span></p>
+                            <p><strong>Status:</strong> 
+                                <span class="badge bg-warning text-dark" th:text="${pedido.status}"></span>
+                            </p>
+                        </div>
+                    </div>
 
-					    <div class="d-flex gap-2">
-					        <select name="status" class="form-select">
-					            <option value="PENDENTE" th:selected="${pedido.status == 'PENDENTE'}">PENDENTE</option>
-					            <option value="CONFIRMADO" th:selected="${pedido.status == 'CONFIRMADO'}">CONFIRMADO</option>
-					            <option value="ENVIADO" th:selected="${pedido.status == 'ENVIADO'}">ENVIADO</option>
-					            <option value="ENTREGUE" th:selected="${pedido.status == 'ENTREGUE'}">ENTREGUE</option>
-					        </select>
+                    <div class="mb-3">
+                        <p><strong>Observação:</strong></p>
+                        <div class="border rounded p-3 bg-light">
+                            <span th:text="${pedido.observacao}">Sem observação</span>
+                        </div>
+                    </div>
 
-					        <button type="submit" class="btn btn-primary">
-					            Atualizar
-					        </button>
-					    </div>
-					</form>
-                    <p><strong>Total:</strong> 
-                        <span class="text-success fw-bold" th:text="${pedido.valorTotal}"></span>
-                    </p>
                 </div>
             </div>
 
-            <div class="card shadow-sm mt-4">
-                <div class="card-body">
-                    <h4 class="mb-3">Dados do Cliente</h4>
-
-                    <p><strong>Nome:</strong> <span th:text="${pedido.nomeCliente}"></span></p>
-                    <p><strong>Telefone:</strong> <span th:text="${pedido.telefoneCliente}"></span></p>
-                    <p><strong>Cidade:</strong> <span th:text="${pedido.cidade}"></span></p>
-                    <p><strong>Endereço:</strong> <span th:text="${pedido.endereco}"></span></p>
-                    <p><strong>Observação:</strong> <span th:text="${pedido.observacao}"></span></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-7">
             <div class="card shadow-sm">
-                <div class="card-body">
-                    <h4 class="mb-3">Itens do Pedido</h4>
-
-                    <table class="table table-striped align-middle">
-                        <thead class="table-dark">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Itens do Pedido</h4>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-bordered table-striped mb-0">
+                        <thead class="table-light">
                             <tr>
                                 <th>Produto</th>
-                                <th>Quantidade (kg)</th>
+                                <th>Quantidade</th>
                                 <th>Preço Unitário</th>
-                                <th>Total Item</th>
+                                <th>Subtotal</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="item : ${pedido.itens}">
                                 <td th:text="${item.produto.nome}"></td>
                                 <td th:text="${item.quantidade}"></td>
-                                <td th:text="${item.precoUnitario}"></td>
-                                <td th:text="${item.quantidade * item.precoUnitario}"></td>
+                                <td>R$ <span th:text="${item.precoUnitario}"></span></td>
+                                <td>R$ <span th:text="${item.precoUnitario * item.quantidade}"></span></td>
                             </tr>
                         </tbody>
                     </table>
-
-                    <div class="mt-3 text-end">
-                        <h5>
-                            Total do Pedido:
-                            <span class="text-success fw-bold" th:text="${pedido.valorTotal}"></span>
-                        </h5>
-                    </div>
                 </div>
             </div>
         </div>
 
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Resumo</h4>
+                </div>
+                <div class="card-body">
+                    <p class="mb-3"><strong>Valor Total:</strong></p>
+                    <h2 class="text-success fw-bold">R$ <span th:text="${pedido.valorTotal}"></span></h2>
+					<hr>
+
+					<h5 class="mb-3">Alterar Status</h5>
+
+					<form th:action="@{/admin/pedidos/{id}/status(id=${pedido.id})}" method="post">
+					    
+					    <button name="status" value="PENDENTE"
+					            class="btn btn-warning mb-2 w-100">
+					        Marcar como PENDENTE
+					    </button>
+
+					    <button name="status" value="EM_PREPARO"
+					            class="btn btn-primary mb-2 w-100">
+					        Marcar como EM PREPARO
+					    </button>
+
+					    <button name="status" value="ENVIADO"
+					            class="btn btn-info mb-2 w-100">
+					        Marcar como ENVIADO
+					    </button>
+
+					    <button name="status" value="ENTREGUE"
+					            class="btn btn-success w-100">
+					        Marcar como ENTREGUE
+					    </button>
+
+					</form>
+                    <hr>
+
+                    <a th:href="@{/admin/pedidos}" class="btn btn-secondary w-100 mb-2">
+                        Voltar para Pedidos
+                    </a>
+
+                    <a th:href="@{'https://wa.me/' + ${pedido.telefoneCliente}}"
+                       target="_blank"
+                       class="btn btn-success w-100">
+                        Falar com Cliente
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
