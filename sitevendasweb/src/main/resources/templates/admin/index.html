@@ -1,78 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Painel Admin</title>
-
-<style>
-
-body{
-font-family:Arial;
-background:#f4f6f9;
-margin:0;
-}
-
-.topo{
-background:#2c3e50;
-color:white;
-padding:20px;
-font-size:22px;
-}
-
-.container{
-padding:40px;
-}
-
-.card{
-background:white;
-padding:25px;
-margin-bottom:20px;
-width:200px;
-border-radius:6px;
-box-shadow:0px 2px 6px rgba(0,0,0,0.2);
-}
-
-.card a{
-text-decoration:none;
-color:#2c3e50;
-font-weight:bold;
-}
-
-.cards{
-display:flex;
-gap:20px;
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <title>GRANITINA - Dolomita para Grafiato</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<body class="bg-light">
 
-<body>
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary fs-3" href="/">GRANITINA</a>
 
-<div class="topo">
-Painel Administrativo
-</div>
+            <div class="d-flex gap-2">
+                <a href="/catalogo" class="btn btn-outline-primary">Catálogo</a>
+                <a href="https://wa.me/55SEUNUMEROAQUI" target="_blank" class="btn btn-success">WhatsApp</a>
+            </div>
+        </div>
+    </nav>
 
-<div class="container">
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold mb-3">
+                        Dolomita para Grafiato com venda direta
+                    </h1>
 
-<div class="cards">
+                    <p class="lead text-muted mb-4">
+                        Qualidade para acabamento e textura de parede, com atendimento direto e pedido pelo site.
+                    </p>
 
-<div class="card">
-<a href="/admin/produtos">Produtos</a>
-</div>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="/catalogo" class="btn btn-primary btn-lg">
+                            Ver Catálogo
+                        </a>
 
-<div class="card">
-<a href="#">Pedidos</a>
-</div>
+                        <a href="https://wa.me/55SEUNUMEROAQUI" target="_blank" class="btn btn-success btn-lg">
+                            Falar no WhatsApp
+                        </a>
+                    </div>
+                </div>
 
-<div class="card">
-<a href="#">Clientes</a>
-</div>
+                <div class="col-lg-6">
+                    <img src="/img/granitina-3.jpg"
+                         alt="Produto Granitina"
+                         class="img-fluid rounded-4 shadow">
+                </div>
 
-</div>
+            </div>
+        </div>
+    </section>
 
-</div>
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Por que comprar na GRANITINA?</h2>
+                <p class="text-muted">Venda direta, contato rápido e pedido organizado pelo site.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body text-center p-4">
+                            <h4 class="mb-3">Venda Direta</h4>
+                            <p class="text-muted mb-0">
+                                Compre sem depender de marketplace e fale direto com quem vende.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body text-center p-4">
+                            <h4 class="mb-3">Pedido Fácil</h4>
+                            <p class="text-muted mb-0">
+                                Escolha os quilos, faça seu pedido e acompanhe pelo atendimento.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body text-center p-4">
+                            <h4 class="mb-3">Atendimento Rápido</h4>
+                            <p class="text-muted mb-0">
+                                Confirmação manual, separação do pedido e contato direto pelo WhatsApp.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-white">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-3">Pronto para fazer seu pedido?</h2>
+            <p class="text-muted mb-4">
+                Veja os produtos disponíveis e monte seu pedido direto no site.
+            </p>
+
+            <a href="/catalogo" class="btn btn-primary btn-lg">
+                Ir para o Catálogo
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-4 border-top bg-light">
+        <div class="container text-center">
+            <h5 class="fw-bold text-primary mb-1">GRANITINA</h5>
+            <p class="text-muted mb-2">Dolomita para Grafiato</p>
+            <a href="https://wa.me/55SEUNUMEROAQUI" target="_blank" class="text-decoration-none">
+                Atendimento via WhatsApp
+            </a>
+        </div>
+    </footer>
 
 </body>
-
 </html>

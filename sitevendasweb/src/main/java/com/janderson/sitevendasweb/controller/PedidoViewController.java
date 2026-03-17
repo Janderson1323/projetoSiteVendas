@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.janderson.sitevendasweb.entity.Pedido;
 import com.janderson.sitevendasweb.service.PedidoService;
@@ -29,5 +31,19 @@ public class PedidoViewController {
         model.addAttribute("pedido", pedido);
 
         return "admin/pedido-detalhe";
+    }
+    
+    @PostMapping("/admin/pedidos/{id}/status")
+    public String atualizarStatus(@PathVariable Long id,
+                                  @RequestParam("status") String status) {
+
+        Pedido pedido = pedidoService.buscarPorId(id);
+
+        if (pedido != null) {
+            pedido.setStatus(status);
+            pedidoService.salvarPedido(pedido);
+        }
+
+        return "redirect:/admin/pedidos/" + id;
     }
 }

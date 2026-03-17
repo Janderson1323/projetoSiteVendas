@@ -1,11 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Site de Vendas</title>
+<meta charset="UTF-8">
+<title>GRANITINA - Dolomita para Grafiato</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
+
 <body>
-    <h1>Bem-vindo ao meu site de vendas</h1>
-    <p>Spring Boot está funcionando 🚀</p>
+
+<!-- HEADER -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="/">
+            GRANITINA
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/catalogo">Catálogo</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/carrinho">Carrinho</a>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<!-- HERO -->
+
+<section class="py-5 bg-light">
+    <div class="container text-center">
+
+        <h1 class="display-4 fw-bold text-primary">
+            GRANITINA
+        </h1>
+
+        <p class="lead text-muted">
+            Dolomita para Grafiato de qualidade para seu acabamento.
+        </p>
+
+        <div class="mt-4">
+
+            <a href="/catalogo" class="btn btn-primary btn-lg me-2">
+                Ver Catálogo
+            </a>
+
+            <a href="https://wa.me/55SEUNUMEROAQUI" target="_blank" class="btn btn-success btn-lg">
+                Falar no WhatsApp
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- BENEFÍCIOS -->
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="row text-center">
+
+            <div class="col-md-4">
+                <h4 class="fw-bold">Qualidade</h4>
+                <p class="text-muted">
+                    Dolomita selecionada ideal para grafiato.
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h4 class="fw-bold">Entrega Rápida</h4>
+                <p class="text-muted">
+                    Atendimento rápido e envio ágil.
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h4 class="fw-bold">Atendimento Direto</h4>
+                <p class="text-muted">
+                    Fale conosco facilmente pelo WhatsApp.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- CTA -->
+
+<section class="py-5 bg-white">
+    <div class="container text-center">
+
+        <h2 class="fw-bold mb-3">
+            Pronto para fazer seu pedido?
+        </h2>
+
+        <p class="text-muted mb-4">
+            Veja os produtos disponíveis e monte seu pedido direto no site.
+        </p>
+
+        <a href="/catalogo" class="btn btn-primary btn-lg">
+            Ir para o Catálogo
+        </a>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer class="py-4 border-top bg-light">
+    <div class="container text-center">
+
+        <h5 class="fw-bold text-primary mb-1">
+            GRANITINA
+        </h5>
+
+        <p class="text-muted mb-2">
+            Dolomita para Grafiato
+        </p>
+
+        <a href="https://wa.me/55SEUNUMEROAQUI"
+           target="_blank"
+           class="text-decoration-none">
+           Atendimento via WhatsApp
+        </a>
+
+    </div>
+</footer>
+
+<!-- BOTÃO WHATSAPP FIXO -->
+
+<a href="https://wa.me/55SEUNUMEROAQUI"
+   target="_blank"
+   class="btn btn-success rounded-circle shadow"
+   style="position:fixed; bottom:20px; right:20px; width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:22px; z-index:999;">
+   W
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
