@@ -1,7 +1,6 @@
 package com.janderson.sitevendasweb.controller;
 
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,32 +33,21 @@ public class CarrinhoController {
     public String verCarrinho(Model model) {
         double total = 0.0;
 
-        StringBuilder mensagem = new StringBuilder();
-        mensagem.append("Olá! 👋%0A%0A");
-        mensagem.append("Pedido pelo site GRANITINA%0A%0A");
-
         for (ItemPedido item : carrinho) {
-            double totalItem = item.getPrecoUnitario() * item.getQuantidade();
-            total += totalItem;
-
-            mensagem.append("Produto: ").append(item.getProduto().getNome()).append("%0A");
-            mensagem.append("Quantidade: ").append(item.getQuantidade()).append(" kg%0A");
-            mensagem.append("Preço unitário: ").append(item.getPrecoUnitario()).append("%0A");
-            mensagem.append("Total item: ").append(totalItem).append("%0A%0A");
+            total += item.getPrecoUnitario() * item.getQuantidade();
         }
-
-        mensagem.append("Total do pedido: ").append(total).append("%0A%0A");
-        mensagem.append("Gostaria de combinar retirada ou entrega.");
 
         model.addAttribute("itens", carrinho);
         model.addAttribute("total", total);
-        model.addAttribute("mensagemWhatsapp", mensagem.toString());
 
         return "carrinho";
     }
-    
+
     @GetMapping("/checkout")
     public String paginaCheckout() {
+        if (carrinho.isEmpty()) {
+            return "redirect:/carrinho";
+        }
         return "checkout";
     }
 
@@ -90,65 +78,40 @@ public class CarrinhoController {
         return "redirect:/carrinho";
     }
 
-    @PostMapping("/carrinho/finalizar")
-    public String finalizarPedido() {
-
-        if (carrinho.isEmpty()) {
-            return "redirect:/carrinho";
-        }
-
-        double total = 0.0;
-
-        for (ItemPedido item : carrinho) {
-            total += item.getPrecoUnitario() * item.getQuantidade();
-        }
-
-        Pedido pedido = new Pedido();
-        pedido.setDataPedido(LocalDateTime.now());
-        pedido.setStatus("PENDENTE");
-        pedido.setValorTotal(total);
-        pedido.setItens(new ArrayList<>(carrinho));
-
-        for (ItemPedido item : carrinho) {
-            Produto produto = item.getProduto();
-
-            if (produto != null && produto.getEstoque() != null) {
-                int novoEstoque = produto.getEstoque() - item.getQuantidade();
-
-                if (novoEstoque < 0) {
-                    novoEstoque = 0;
-                }
-
-                produto.setEstoque(novoEstoque);
-                produtoService.salvarProduto(produto);
-            }
-        }
-
-        pedidoService.salvarPedido(pedido);
-
-        carrinho.clear();
-
-        return "redirect:/admin/pedidos";
-    }
-    
-   
-    
-    @PostMapping("/checkout/finalizar")
+    @PostMapping("/pedido/finalizar")
     public String finalizarCheckout(
             @RequestParam("nomeCliente") String nomeCliente,
-            @RequestParam("telefoneCliente") String telefoneCliente,
+            @RequestParam("telefone") String telefone,
             @RequestParam("cidade") String cidade,
             @RequestParam("endereco") String endereco,
-            @RequestParam("observacao") String observacao) {
+            @RequestParam(value = "observacao", required = false) String observacao,
+            Model model) {
 
         if (carrinho.isEmpty()) {
             return "redirect:/carrinho";
         }
 
         double total = 0.0;
+        StringBuilder mensagem = new StringBuilder();
+        mensagem.append("Novo pedido\n\n");
 
         for (ItemPedido item : carrinho) {
-            total += item.getPrecoUnitario() * item.getQuantidade();
+            double subtotal = item.getPrecoUnitario() * item.getQuantidade();
+            total += subtotal;
+
+            mensagem.append("Produto: ").append(item.getProduto().getNome()).append("\n");
+            mensagem.append("Quantidade: ").append(item.getQuantidade()).append(" kg\n");
+            mensagem.append("Subtotal: R$ ").append(subtotal).append("\n\n");
+        }
+
+        mensagem.append("Total do Pedido: R$ ").append(total).append("\n\n");
+        mensagem.append("Cliente: ").append(nomeCliente).append("\n");
+        mensagem.append("Telefone: ").append(telefone).append("\n");
+        mensagem.append("Cidade: ").append(cidade).append("\n");
+        mensagem.append("Endereço: ").append(endereco).append("\n");
+
+        if (observacao != null && !observacao.isBlank()) {
+            mensagem.append("Observação: ").append(observacao).append("\n");
         }
 
         Pedido pedido = new Pedido();
@@ -158,7 +121,7 @@ public class CarrinhoController {
         pedido.setItens(new ArrayList<>(carrinho));
 
         pedido.setNomeCliente(nomeCliente);
-        pedido.setTelefoneCliente(telefoneCliente);
+        pedido.setTelefoneCliente(telefone);
         pedido.setCidade(cidade);
         pedido.setEndereco(endereco);
         pedido.setObservacao(observacao);
@@ -180,8 +143,21 @@ public class CarrinhoController {
 
         pedidoService.salvarPedido(pedido);
 
+        String numeroWhatsapp = "5511954307383";
+
+        String textoCodificado = java.net.URLEncoder.encode(
+                mensagem.toString(),
+                java.nio.charset.StandardCharsets.UTF_8
+        );
+
+        String linkWhatsapp = "https://api.whatsapp.com/send?phone="
+                + numeroWhatsapp + "&text=" + textoCodificado;
+
+        model.addAttribute("linkWhatsapp", linkWhatsapp);
+        model.addAttribute("total", total);
+
         carrinho.clear();
 
-        return "redirect:/admin/pedidos";
+        return "pedido-confirmado";
     }
 }

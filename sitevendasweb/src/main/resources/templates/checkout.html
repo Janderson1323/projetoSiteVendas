@@ -11,8 +11,6 @@
 
 <body>
 
-<!-- HEADER -->
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
 
@@ -45,8 +43,6 @@
     </div>
 </nav>
 
-<!-- TÍTULO -->
-
 <section class="py-5 bg-light">
     <div class="container text-center">
         <h1 class="fw-bold text-primary">Finalizar Pedido</h1>
@@ -56,8 +52,6 @@
     </div>
 </section>
 
-<!-- FORMULÁRIO -->
-
 <section class="py-5">
     <div class="container">
         <div class="row justify-content-center">
@@ -66,8 +60,7 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
 
-                        <form action="/checkout/finalizar" method="post">
-
+<form th:action="@{/pedido/finalizar}" method="post">
                             <div class="mb-3">
                                 <label class="form-label">Nome</label>
                                 <input type="text" name="nomeCliente" class="form-control" required>
@@ -75,7 +68,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Telefone</label>
-                                <input type="text" name="telefoneCliente" class="form-control" required>
+                                <input type="text" name="telefone" class="form-control" required>
                             </div>
 
                             <div class="mb-3">
@@ -114,8 +107,6 @@
     </div>
 </section>
 
-<!-- FOOTER -->
-
 <footer class="py-4 border-top bg-light">
     <div class="container text-center">
 
@@ -127,7 +118,7 @@
             Dolomita para Grafiato
         </p>
 
-        <a href="https://wa.me/55SEUNUMEROAQUI"
+        <a href="https://wa.me/5511954307383"
            target="_blank"
            class="text-decoration-none">
            Atendimento via WhatsApp
@@ -136,9 +127,7 @@
     </div>
 </footer>
 
-<!-- BOTÃO WHATSAPP -->
-
-<a href="https://wa.me/55SEUNUMEROAQUI"
+<a href="https://wa.me/5511954307383"
    target="_blank"
    class="btn btn-success rounded-circle shadow"
    style="position:fixed; bottom:20px; right:20px; width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:22px; z-index:999;">
