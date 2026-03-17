@@ -124,4 +124,9 @@ public class CarrinhoController {
 
         return "redirect:/admin/pedidos";
     }
+    
+    @GetMapping("/checkout")
+    public String abrirCheckout() {
+        return "checkout";
+    }
 }

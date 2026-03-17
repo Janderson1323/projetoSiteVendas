@@ -22,6 +22,12 @@ public class Pedido {
     private String status;
 
     private Double valorTotal;
+    
+    private String nomeCliente;
+    private String telefoneCliente;
+    private String cidade;
+    private String endereco;
+    private String observacao;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<ItemPedido> itens;
@@ -30,6 +36,47 @@ public class Pedido {
         return id;
     }
 
+    
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getTelefoneCliente() {
+        return telefoneCliente;
+    }
+
+    public void setTelefoneCliente(String telefoneCliente) {
+        this.telefoneCliente = telefoneCliente;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+    
     public LocalDateTime getDataPedido() {
         return dataPedido;
     }
