@@ -1,6 +1,7 @@
 package com.janderson.sitevendasweb.controller;
 
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,11 @@ public class CarrinhoController {
         model.addAttribute("mensagemWhatsapp", mensagem.toString());
 
         return "carrinho";
+    }
+    
+    @GetMapping("/checkout")
+    public String paginaCheckout() {
+        return "checkout";
     }
 
     @PostMapping("/carrinho/adicionar/{id}")
@@ -125,8 +131,57 @@ public class CarrinhoController {
         return "redirect:/admin/pedidos";
     }
     
-    @GetMapping("/checkout")
-    public String abrirCheckout() {
-        return "checkout";
+   
+    
+    @PostMapping("/checkout/finalizar")
+    public String finalizarCheckout(
+            @RequestParam("nomeCliente") String nomeCliente,
+            @RequestParam("telefoneCliente") String telefoneCliente,
+            @RequestParam("cidade") String cidade,
+            @RequestParam("endereco") String endereco,
+            @RequestParam("observacao") String observacao) {
+
+        if (carrinho.isEmpty()) {
+            return "redirect:/carrinho";
+        }
+
+        double total = 0.0;
+
+        for (ItemPedido item : carrinho) {
+            total += item.getPrecoUnitario() * item.getQuantidade();
+        }
+
+        Pedido pedido = new Pedido();
+        pedido.setDataPedido(LocalDateTime.now());
+        pedido.setStatus("PENDENTE");
+        pedido.setValorTotal(total);
+        pedido.setItens(new ArrayList<>(carrinho));
+
+        pedido.setNomeCliente(nomeCliente);
+        pedido.setTelefoneCliente(telefoneCliente);
+        pedido.setCidade(cidade);
+        pedido.setEndereco(endereco);
+        pedido.setObservacao(observacao);
+
+        for (ItemPedido item : carrinho) {
+            Produto produto = item.getProduto();
+
+            if (produto != null && produto.getEstoque() != null) {
+                int novoEstoque = produto.getEstoque() - item.getQuantidade();
+
+                if (novoEstoque < 0) {
+                    novoEstoque = 0;
+                }
+
+                produto.setEstoque(novoEstoque);
+                produtoService.salvarProduto(produto);
+            }
+        }
+
+        pedidoService.salvarPedido(pedido);
+
+        carrinho.clear();
+
+        return "redirect:/admin/pedidos";
     }
 }
