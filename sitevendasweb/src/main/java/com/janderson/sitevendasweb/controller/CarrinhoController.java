@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.janderson.sitevendasweb.entity.ItemPedido;
 import com.janderson.sitevendasweb.entity.Pedido;
 import com.janderson.sitevendasweb.entity.Produto;
+import com.janderson.sitevendasweb.entity.StatusPedido;
 import com.janderson.sitevendasweb.service.PedidoService;
 import com.janderson.sitevendasweb.service.ProdutoService;
 
@@ -116,8 +117,7 @@ public class CarrinhoController {
 
         Pedido pedido = new Pedido();
         pedido.setDataPedido(LocalDateTime.now());
-        pedido.setStatus("PENDENTE");
-        pedido.setValorTotal(total);
+        pedido.setStatus(StatusPedido.PENDENTE);        pedido.setValorTotal(total);
         pedido.setItens(new ArrayList<>(carrinho));
 
         pedido.setNomeCliente(nomeCliente);

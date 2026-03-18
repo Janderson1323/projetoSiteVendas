@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.janderson.sitevendasweb.entity.Pedido;
+import com.janderson.sitevendasweb.entity.StatusPedido;
 import com.janderson.sitevendasweb.service.PedidoService;
 
 @Controller
@@ -36,8 +37,8 @@ public class PedidoViewController {
         Pedido pedido = pedidoService.buscarPorId(id);
 
         if (pedido != null) {
-            pedido.setStatus(status);
-            pedidoService.salvarPedido(pedido);
+        	pedido.setStatus(StatusPedido.ENVIADO);
+        	pedidoService.salvarPedido(pedido);
         }
 
         return "redirect:/admin/pedidos/" + id;

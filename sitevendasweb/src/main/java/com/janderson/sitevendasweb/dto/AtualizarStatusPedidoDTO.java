@@ -1,17 +1,19 @@
 package com.janderson.sitevendasweb.dto;
 
+import com.janderson.sitevendasweb.entity.StatusPedido;
+
 public class AtualizarStatusPedidoDTO {
 
-    private String status;
+    private StatusPedido status;
 
     public AtualizarStatusPedidoDTO() {
     }
 
-    public String getStatus() {
+    public StatusPedido getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusPedido status) {
         this.status = status;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.janderson.sitevendasweb.entity.Pedido;
 import com.janderson.sitevendasweb.entity.Produto;
+import com.janderson.sitevendasweb.entity.StatusPedido;
 import com.janderson.sitevendasweb.service.PedidoService;
 import com.janderson.sitevendasweb.service.ProdutoService;
 
@@ -31,7 +32,7 @@ public class AdminController {
         long totalPedidos = pedidos.size();
 
         long pedidosPendentes = pedidos.stream()
-                .filter(p -> "PENDENTE".equalsIgnoreCase(p.getStatus()))
+                .filter(p -> p.getStatus() == StatusPedido.PENDENTE)
                 .count();
 
         double valorTotalVendido = pedidos.stream()

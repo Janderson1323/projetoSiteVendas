@@ -5,22 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.janderson.sitevendasweb.dto.DashboardDTO;
 import com.janderson.sitevendasweb.entity.Pedido;
+import com.janderson.sitevendasweb.entity.StatusPedido;
 import com.janderson.sitevendasweb.repository.PedidoRepository;
-
-
 
 @Service
 public class PedidoService {
-	
-	
-	
 
     @Autowired
     private PedidoRepository pedidoRepository;
 
     public List<Pedido> listarPedidos() {
         return pedidoRepository.findAll();
+    }
+
+    public List<Pedido> listarPedidosPorStatus(StatusPedido status) {
+        return pedidoRepository.findByStatus(status);
     }
 
     public Pedido salvarPedido(Pedido pedido) {
@@ -34,17 +35,12 @@ public class PedidoService {
     public void deletarPedido(Long id) {
         pedidoRepository.deleteById(id);
     }
-    
+
     public Pedido buscarPorId(Long id) {
         return pedidoRepository.findById(id).orElse(null);
     }
-    
-    public List<Pedido> listarPedidosPorStatus(String status) {
-        return pedidoRepository.findByStatusIgnoreCase(status);
-    }
-    
-    public Pedido atualizarStatus(Long id, String status) {
 
+    public Pedido atualizarStatus(Long id, StatusPedido status) {
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
 
@@ -53,4 +49,13 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
+    public DashboardDTO obterDashboard() {
+        long total = pedidoRepository.count();
+
+        long pendentes = pedidoRepository.countByStatus(StatusPedido.PENDENTE);
+        long enviados = pedidoRepository.countByStatus(StatusPedido.ENVIADO);
+        long cancelados = pedidoRepository.countByStatus(StatusPedido.CANCELADO);
+
+        return new DashboardDTO(total, pendentes, enviados, cancelados);
+    }
 }

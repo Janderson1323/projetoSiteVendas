@@ -2,6 +2,8 @@ package com.janderson.sitevendasweb.dto;
 
 import java.time.LocalDateTime;
 
+import com.janderson.sitevendasweb.entity.StatusPedido;
+
 public class PedidoDTO {
 
     private Long id;
@@ -10,8 +12,7 @@ public class PedidoDTO {
     private String cidade;
     private String endereco;
     private String observacao;
-    private String status;
-    private Double valorTotal;
+    private StatusPedido status;    private Double valorTotal;
     private LocalDateTime dataPedido;
 
     public PedidoDTO() {
@@ -41,8 +42,13 @@ public class PedidoDTO {
         return observacao;
     }
 
-    public String getStatus() {
+   
+    public StatusPedido getStatus() {
         return status;
+    }
+
+    public void setStatus(StatusPedido status) {
+        this.status = status;
     }
 
     public Double getValorTotal() {
@@ -77,9 +83,7 @@ public class PedidoDTO {
         this.observacao = observacao;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+   
 
     public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
