@@ -1,6 +1,10 @@
+
+
 package com.janderson.sitevendasweb.controller;
 
 import java.util.List;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +18,8 @@ import com.janderson.sitevendasweb.entity.Produto;
 import com.janderson.sitevendasweb.mapper.ProdutoMapper;
 import com.janderson.sitevendasweb.service.ProdutoService;
 
+
+@Tag(name = "Produtos", description = "API para gerenciamento de produtos")
 @RestController
 @RequestMapping("/api/produtos")
 public class ProdutoController {
@@ -78,4 +84,6 @@ public class ProdutoController {
 
         return produtoService.listarProdutosPaginados(page, size);
     }
+    
+    
 }
