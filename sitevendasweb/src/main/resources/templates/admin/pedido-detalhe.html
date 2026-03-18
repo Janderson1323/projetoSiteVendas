@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalhe do Pedido - GRANITINA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -20,6 +21,8 @@
 
 <div class="container py-5">
 
+    <div th:if="${mensagem}" class="alert alert-success" th:text="${mensagem}"></div>
+
     <div class="row">
         <div class="col-lg-8">
             <div class="card shadow-sm mb-4">
@@ -34,11 +37,33 @@
                             <p><strong>Telefone:</strong> <span th:text="${pedido.telefoneCliente}"></span></p>
                             <p><strong>Cidade:</strong> <span th:text="${pedido.cidade}"></span></p>
                         </div>
+
                         <div class="col-md-6">
                             <p><strong>Endereço:</strong> <span th:text="${pedido.endereco}"></span></p>
                             <p><strong>Data do Pedido:</strong> <span th:text="${pedido.dataPedido}"></span></p>
-                            <p><strong>Status:</strong> 
-                                <span class="badge bg-warning text-dark" th:text="${pedido.status}"></span>
+
+                            <p>
+                                <strong>Status:</strong>
+
+                                <span th:if="${pedido.status.name() == 'PENDENTE'}"
+                                      class="badge bg-warning text-dark">
+                                    PENDENTE
+                                </span>
+
+                                <span th:if="${pedido.status.name() == 'ENVIADO'}"
+                                      class="badge bg-info text-dark">
+                                    ENVIADO
+                                </span>
+
+                                <span th:if="${pedido.status.name() == 'ENTREGUE'}"
+                                      class="badge bg-success">
+                                    ENTREGUE
+                                </span>
+
+                                <span th:if="${pedido.status.name() == 'CANCELADO'}"
+                                      class="badge bg-danger">
+                                    CANCELADO
+                                </span>
                             </p>
                         </div>
                     </div>
@@ -46,7 +71,7 @@
                     <div class="mb-3">
                         <p><strong>Observação:</strong></p>
                         <div class="border rounded p-3 bg-light">
-                            <span th:text="${pedido.observacao}">Sem observação</span>
+                            <span th:text="${pedido.observacao} ?: 'Sem observação'">Sem observação</span>
                         </div>
                     </div>
 
@@ -74,6 +99,12 @@
                                 <td>R$ <span th:text="${item.precoUnitario}"></span></td>
                                 <td>R$ <span th:text="${item.precoUnitario * item.quantidade}"></span></td>
                             </tr>
+
+                            <tr th:if="${#lists.isEmpty(pedido.itens)}">
+                                <td colspan="4" class="text-center text-muted py-3">
+                                    Nenhum item encontrado neste pedido.
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -88,33 +119,33 @@
                 <div class="card-body">
                     <p class="mb-3"><strong>Valor Total:</strong></p>
                     <h2 class="text-success fw-bold">R$ <span th:text="${pedido.valorTotal}"></span></h2>
-					<hr>
 
-					<h5 class="mb-3">Alterar Status</h5>
+                    <hr>
 
-					<form th:action="@{/admin/pedidos/{id}/status(id=${pedido.id})}" method="post">
-					    
-					    <button name="status" value="PENDENTE"
-					            class="btn btn-warning mb-2 w-100">
-					        Marcar como PENDENTE
-					    </button>
+                    <h5 class="mb-3">Alterar Status</h5>
 
-					    <button name="status" value="EM_PREPARO"
-					            class="btn btn-primary mb-2 w-100">
-					        Marcar como EM PREPARO
-					    </button>
+                    <form th:action="@{/admin/pedidos/{id}/status(id=${pedido.id})}" method="post">
+                        <button name="status" value="PENDENTE"
+                                class="btn btn-warning mb-2 w-100">
+                            Marcar como PENDENTE
+                        </button>
 
-					    <button name="status" value="ENVIADO"
-					            class="btn btn-info mb-2 w-100">
-					        Marcar como ENVIADO
-					    </button>
+                        <button name="status" value="ENVIADO"
+                                class="btn btn-info mb-2 w-100">
+                            Marcar como ENVIADO
+                        </button>
 
-					    <button name="status" value="ENTREGUE"
-					            class="btn btn-success w-100">
-					        Marcar como ENTREGUE
-					    </button>
+                        <button name="status" value="ENTREGUE"
+                                class="btn btn-success mb-2 w-100">
+                            Marcar como ENTREGUE
+                        </button>
 
-					</form>
+                        <button name="status" value="CANCELADO"
+                                class="btn btn-danger w-100">
+                            Marcar como CANCELADO
+                        </button>
+                    </form>
+
                     <hr>
 
                     <a th:href="@{/admin/pedidos}" class="btn btn-secondary w-100 mb-2">

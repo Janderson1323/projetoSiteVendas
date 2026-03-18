@@ -52,7 +52,7 @@ public class PedidoController {
     @Operation(summary = "Buscar pedido por ID")
     @GetMapping("/{id}")
     public PedidoDTO buscarPedidoPorId(@PathVariable Long id) {
-        Pedido pedido = pedidoService.buscarPedidoPorId(id);
+    	Pedido pedido = pedidoService.buscarPorId(id);
         return PedidoMapper.toDTO(pedido);
     }
 

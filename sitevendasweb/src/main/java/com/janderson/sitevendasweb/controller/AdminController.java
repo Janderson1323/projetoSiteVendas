@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.janderson.sitevendasweb.entity.Pedido;
 import com.janderson.sitevendasweb.entity.Produto;
@@ -46,10 +48,31 @@ public class AdminController {
 
         return "admin/index";
     }
-    
+
+    // ✅ MÉTODO ÚNICO (COM FILTRO)
     @GetMapping("/admin/pedidos")
-    public String listarPedidos(Model model) {
-        model.addAttribute("pedidos", pedidoService.listarPedidos());
+    public String listarPedidos(@RequestParam(required = false) StatusPedido status, Model model) {
+
+        List<Pedido> pedidos;
+
+        if (status != null) {
+            pedidos = pedidoService.listarPedidosPorStatus(status);
+        } else {
+            pedidos = pedidoService.listarPedidos();
+        }
+
+        model.addAttribute("pedidos", pedidos);
+        model.addAttribute("statusSelecionado", status);
+
         return "admin/pedidos";
+    }
+
+    @GetMapping("/admin/pedidos/{id}")
+    public String detalhePedido(@PathVariable Long id, Model model) {
+        Pedido pedido = pedidoService.buscarPorId(id);
+
+        model.addAttribute("pedido", pedido);
+
+        return "admin/pedido-detalhe";
     }
 }
