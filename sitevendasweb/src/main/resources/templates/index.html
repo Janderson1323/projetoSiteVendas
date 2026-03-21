@@ -59,6 +59,7 @@
         border: 1px solid #dbe7ff !important;
         box-shadow: 0 10px 28px rgba(29, 78, 216, 0.08) !important;
         background: #ffffff;
+        overflow: hidden;
     }
 
     .miniatura {
@@ -100,6 +101,50 @@
 
     footer .text-muted {
         color: rgba(255,255,255,0.72) !important;
+    }
+
+    .selo-topo {
+        display: inline-block;
+        background: #e8f0ff;
+        color: #1d4ed8;
+        font-weight: 700;
+        font-size: 0.85rem;
+        padding: 8px 14px;
+        border-radius: 999px;
+        margin-bottom: 14px;
+    }
+
+    .selo-venda {
+        display: inline-block;
+        background: #fff7e6;
+        color: #b45309;
+        font-weight: 700;
+        font-size: 0.82rem;
+        padding: 6px 12px;
+        border-radius: 999px;
+        margin-bottom: 12px;
+    }
+
+    .infos-rapidas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+        margin-bottom: 18px;
+    }
+
+    .info-chip {
+        background: #f3f4f6;
+        color: #334155;
+        border-radius: 999px;
+        padding: 7px 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .produto-extra {
+        color: #475569;
+        margin-bottom: 18px;
     }
 </style>
 
@@ -153,7 +198,6 @@
         </p>
 
         <div class="mt-4">
-
             <a href="/catalogo" class="btn btn-marca btn-lg me-2">
                 Ver Catálogo
             </a>
@@ -161,7 +205,6 @@
             <a href="https://wa.me/5511954307383" target="_blank" class="btn btn-whats btn-lg">
                 Falar no WhatsApp
             </a>
-
         </div>
 
     </div>
@@ -178,7 +221,6 @@
                 <div class="col-md-6">
                     <div class="row">
 
-                        <!-- MINIATURAS -->
                         <div class="col-2">
                             <div class="d-flex flex-column gap-2">
 
@@ -199,7 +241,6 @@
                             </div>
                         </div>
 
-                        <!-- IMAGEM GRANDE -->
                         <div class="col-10">
                             <img id="imagemPrincipal"
                                  src="/img/Granitina.jpg"
@@ -213,21 +254,25 @@
                 <!-- INFO DIREITA -->
                 <div class="col-md-6 p-4">
 
+                    <span class="selo-venda">Mais vendido</span>
+
                     <h2 class="fw-bold produto-titulo">
                         Granitina Malha 8 - 4kg
                     </h2>
 
-                    <p class="text-secondary">
-                        Produto mais vendido para grafiato e acabamento.
+                    <p class="produto-extra">
+                        Produto ideal para grafiato e acabamento, com aplicação prática e ótima apresentação final.
                     </p>
 
                     <h3 class="produto-preco">
                         R$ 50,00
                     </h3>
 
-                    <p class="text-dark">
-                        Estoque: <strong>100 kg</strong>
-                    </p>
+                    <div class="infos-rapidas">
+                        <span class="info-chip">Estoque: 100 kg</span>
+                        <span class="info-chip">Atendimento rápido</span>
+                        <span class="info-chip">Venda direta</span>
+                    </div>
 
                     <a href="/produto/1" class="btn btn-outline-dark me-2">
                         Ver detalhes
@@ -319,6 +364,8 @@ function trocarImagem(elemento) {
 <section class="py-5 cta-section">
     <div class="container text-center">
 
+        <span class="selo-topo">Atendimento rápido pelo WhatsApp</span>
+
         <h2 class="fw-bold mb-3 section-title">
             Pronto para fazer seu pedido?
         </h2>
@@ -346,8 +393,6 @@ function trocarImagem(elemento) {
                 <p class="text-light small mb-0">
                     Atendimento em horário comercial
                 </p>
-				
-		
             </div>
 
             <div class="col-md-4 mb-4">
