@@ -30,35 +30,46 @@ public class CarrinhoController {
 
     private List<ItemPedido> carrinho = new ArrayList<>();
 
-    @GetMapping("/carrinho")
-    public String verCarrinho(Model model) {
-        double total = 0.0;
-
-        for (ItemPedido item : carrinho) {
-            total += item.getPrecoUnitario() * item.getQuantidade();
-        }
-
-        model.addAttribute("itens", carrinho);
-        model.addAttribute("total", total);
-
-        return "carrinho";
-    }
-
-    @GetMapping("/checkout")
-    public String paginaCheckout() {
-        if (carrinho.isEmpty()) {
-            return "redirect:/carrinho";
-        }
-        return "checkout";
-    }
-
     @PostMapping("/carrinho/adicionar/{id}")
     public String adicionarProduto(@PathVariable Long id,
-                                   @RequestParam("quantidade") int quantidade) {
+                                   @RequestParam(defaultValue = "1") Integer quantidade) {
 
         Produto produto = produtoService.buscarProdutoPorId(id);
 
-        if (produto != null) {
+        if (produto == null) {
+            return "redirect:/catalogo";
+        }
+
+        if (quantidade == null || quantidade <= 0) {
+            return "redirect:/catalogo";
+        }
+
+        if (produto.getEstoque() == null || produto.getEstoque() <= 0) {
+            return "redirect:/catalogo";
+        }
+
+        ItemPedido itemExistente = null;
+
+        for (ItemPedido item : carrinho) {
+            if (item.getProduto() != null && item.getProduto().getId().equals(id)) {
+                itemExistente = item;
+                break;
+            }
+        }
+
+        if (itemExistente != null) {
+            int novaQuantidade = itemExistente.getQuantidade() + quantidade;
+
+            if (novaQuantidade > produto.getEstoque()) {
+                novaQuantidade = produto.getEstoque();
+            }
+
+            itemExistente.setQuantidade(novaQuantidade);
+        } else {
+            if (quantidade > produto.getEstoque()) {
+                quantidade = produto.getEstoque();
+            }
+
             ItemPedido item = new ItemPedido();
             item.setProduto(produto);
             item.setQuantidade(quantidade);
@@ -70,91 +81,117 @@ public class CarrinhoController {
         return "redirect:/carrinho";
     }
 
+    @GetMapping("/carrinho")
+    public String verCarrinho(Model model) {
+        double total = carrinho.stream()
+                .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade())
+                .sum();
+
+        model.addAttribute("itens", carrinho);
+        model.addAttribute("total", total);
+        return "carrinho";
+    }
+
     @GetMapping("/carrinho/remover/{index}")
     public String removerItem(@PathVariable int index) {
         if (index >= 0 && index < carrinho.size()) {
             carrinho.remove(index);
         }
-
         return "redirect:/carrinho";
     }
 
-    @PostMapping("/pedido/finalizar")
-    public String finalizarCheckout(
-            @RequestParam("nomeCliente") String nomeCliente,
-            @RequestParam("telefone") String telefone,
-            @RequestParam("cidade") String cidade,
-            @RequestParam("endereco") String endereco,
-            @RequestParam(value = "observacao", required = false) String observacao,
-            Model model) {
+    @GetMapping("/checkout")
+    public String exibirCheckout(Model model) {
+        double total = carrinho.stream()
+                .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade())
+                .sum();
+
+        model.addAttribute("itens", carrinho);
+        model.addAttribute("total", total);
+        return "checkout";
+    }
+
+    @PostMapping("/checkout/finalizar")
+    public String finalizarPedido(@RequestParam String nomeCliente,
+                                  @RequestParam String telefoneCliente,
+                                  @RequestParam String cidade,
+                                  @RequestParam String endereco,
+                                  @RequestParam(required = false) String observacao,
+                                  Model model) {
 
         if (carrinho.isEmpty()) {
             return "redirect:/carrinho";
         }
 
-        double total = 0.0;
-        StringBuilder mensagem = new StringBuilder();
-        mensagem.append("Novo pedido\n\n");
-
-        for (ItemPedido item : carrinho) {
-            double subtotal = item.getPrecoUnitario() * item.getQuantidade();
-            total += subtotal;
-
-            mensagem.append("Produto: ").append(item.getProduto().getNome()).append("\n");
-            mensagem.append("Quantidade: ").append(item.getQuantidade()).append(" kg\n");
-            mensagem.append("Subtotal: R$ ").append(subtotal).append("\n\n");
-        }
-
-        mensagem.append("Total do Pedido: R$ ").append(total).append("\n\n");
-        mensagem.append("Cliente: ").append(nomeCliente).append("\n");
-        mensagem.append("Telefone: ").append(telefone).append("\n");
-        mensagem.append("Cidade: ").append(cidade).append("\n");
-        mensagem.append("Endereço: ").append(endereco).append("\n");
-
-        if (observacao != null && !observacao.isBlank()) {
-            mensagem.append("Observação: ").append(observacao).append("\n");
-        }
-
         Pedido pedido = new Pedido();
-        pedido.setDataPedido(LocalDateTime.now());
-        pedido.setStatus(StatusPedido.PENDENTE);        pedido.setValorTotal(total);
-        pedido.setItens(new ArrayList<>(carrinho));
-
         pedido.setNomeCliente(nomeCliente);
-        pedido.setTelefoneCliente(telefone);
+        pedido.setTelefoneCliente(telefoneCliente);
         pedido.setCidade(cidade);
         pedido.setEndereco(endereco);
         pedido.setObservacao(observacao);
+        pedido.setDataPedido(LocalDateTime.now());
+        pedido.setStatus(StatusPedido.PENDENTE);
 
-        for (ItemPedido item : carrinho) {
-            Produto produto = item.getProduto();
+        double total = 0.0;
+        List<ItemPedido> itensPedido = new ArrayList<>();
 
-            if (produto != null && produto.getEstoque() != null) {
-                int novoEstoque = produto.getEstoque() - item.getQuantidade();
+        for (ItemPedido itemCarrinho : carrinho) {
+            Produto produto = produtoService.buscarProdutoPorId(itemCarrinho.getProduto().getId());
 
-                if (novoEstoque < 0) {
-                    novoEstoque = 0;
-                }
-
-                produto.setEstoque(novoEstoque);
-                produtoService.salvarProduto(produto);
+            if (produto == null) {
+                continue;
             }
+
+            if (produto.getEstoque() < itemCarrinho.getQuantidade()) {
+                return "redirect:/carrinho";
+            }
+
+            produto.setEstoque(produto.getEstoque() - itemCarrinho.getQuantidade());
+            produtoService.salvarProduto(produto);
+
+            ItemPedido itemPedido = new ItemPedido();
+            itemPedido.setProduto(produto);
+            itemPedido.setQuantidade(itemCarrinho.getQuantidade());
+            itemPedido.setPrecoUnitario(itemCarrinho.getPrecoUnitario());
+
+            total += itemPedido.getQuantidade() * itemPedido.getPrecoUnitario();
+            itensPedido.add(itemPedido);
         }
+
+        pedido.setValorTotal(total);
+        pedido.setItens(itensPedido);
 
         pedidoService.salvarPedido(pedido);
 
-        String numeroWhatsapp = "5511954307383";
+        StringBuilder mensagem = new StringBuilder();
+        mensagem.append("Novo Pedido - GRANITINA%0A%0A");
+        mensagem.append("Cliente: ").append(nomeCliente).append("%0A");
+        mensagem.append("Telefone: ").append(telefoneCliente).append("%0A");
+        mensagem.append("Cidade: ").append(cidade).append("%0A");
+        mensagem.append("Endereço: ").append(endereco).append("%0A");
 
-        String textoCodificado = java.net.URLEncoder.encode(
-                mensagem.toString(),
-                java.nio.charset.StandardCharsets.UTF_8
-        );
+        if (observacao != null && !observacao.isBlank()) {
+            mensagem.append("Observação: ").append(observacao).append("%0A");
+        }
 
-        String linkWhatsapp = "https://api.whatsapp.com/send?phone="
-                + numeroWhatsapp + "&text=" + textoCodificado;
+        mensagem.append("%0AItens do pedido:%0A");
 
+        for (ItemPedido item : itensPedido) {
+            mensagem.append("- ")
+                    .append(item.getProduto().getNome())
+                    .append(" | Qtd: ")
+                    .append(item.getQuantidade())
+                    .append(" | Preço: R$ ")
+                    .append(String.format("%.2f", item.getPrecoUnitario()))
+                    .append("%0A");
+        }
+
+        mensagem.append("%0ATotal: R$ ").append(String.format("%.2f", total));
+
+        String linkWhatsapp = "https://wa.me/5511954307383?text=" + mensagem.toString();
+
+        model.addAttribute("pedido", pedido);
         model.addAttribute("linkWhatsapp", linkWhatsapp);
-        model.addAttribute("total", total);
 
         carrinho.clear();
 
