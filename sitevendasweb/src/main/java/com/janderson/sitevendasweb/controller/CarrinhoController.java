@@ -164,31 +164,38 @@ public class CarrinhoController {
         pedidoService.salvarPedido(pedido);
 
         StringBuilder mensagem = new StringBuilder();
-        mensagem.append("Novo Pedido - GRANITINA%0A%0A");
-        mensagem.append("Cliente: ").append(nomeCliente).append("%0A");
-        mensagem.append("Telefone: ").append(telefoneCliente).append("%0A");
-        mensagem.append("Cidade: ").append(cidade).append("%0A");
-        mensagem.append("Endereço: ").append(endereco).append("%0A");
+
+        mensagem.append("NOVO PEDIDO - GRANITINA\n\n");
+
+        mensagem.append("Cliente: ").append(nomeCliente).append("\n");
+        mensagem.append("Telefone: ").append(telefoneCliente).append("\n");
+        mensagem.append("Cidade: ").append(cidade).append("\n");
+        mensagem.append("Endereco: ").append(endereco).append("\n");
 
         if (observacao != null && !observacao.isBlank()) {
-            mensagem.append("Observação: ").append(observacao).append("%0A");
+            mensagem.append("Observacao: ").append(observacao).append("\n");
         }
 
-        mensagem.append("%0AItens do pedido:%0A");
+        mensagem.append("\n");
+        mensagem.append("Itens do pedido:\n");
 
         for (ItemPedido item : itensPedido) {
-            mensagem.append("- ")
-                    .append(item.getProduto().getNome())
-                    .append(" | Qtd: ")
-                    .append(item.getQuantidade())
-                    .append(" | Preço: R$ ")
-                    .append(String.format("%.2f", item.getPrecoUnitario()))
-                    .append("%0A");
+            double subtotalItem = item.getQuantidade() * item.getPrecoUnitario();
+
+            mensagem.append("\n");
+            mensagem.append("- ").append(item.getProduto().getNome()).append("\n");
+            mensagem.append("  Qtd: ").append(item.getQuantidade()).append("\n");
+            mensagem.append("  Preco unitario: R$ ").append(String.format("%.2f", item.getPrecoUnitario())).append("\n");
+            mensagem.append("  Subtotal: R$ ").append(String.format("%.2f", subtotalItem)).append("\n");
         }
 
-        mensagem.append("%0ATotal: R$ ").append(String.format("%.2f", total));
+        mensagem.append("\n");
+        mensagem.append("TOTAL DO PEDIDO: R$ ").append(String.format("%.2f", total)).append("\n");
+        mensagem.append("\n");
+        mensagem.append("Aguardando confirmacao.");
 
-        String linkWhatsapp = "https://wa.me/5511954307383?text=" + mensagem.toString();
+        String linkWhatsapp = "https://wa.me/5511954307383?text="
+                + java.net.URLEncoder.encode(mensagem.toString(), java.nio.charset.StandardCharsets.UTF_8);
 
         model.addAttribute("pedido", pedido);
         model.addAttribute("linkWhatsapp", linkWhatsapp);
@@ -196,5 +203,7 @@ public class CarrinhoController {
         carrinho.clear();
 
         return "pedido-confirmado";
+        
     }
+    
 }
