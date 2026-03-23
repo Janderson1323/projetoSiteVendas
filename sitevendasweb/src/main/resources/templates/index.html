@@ -211,75 +211,46 @@
 </section>
 
 <!-- PRODUTO DESTAQUE -->
-<section class="py-5 bg-white">
+<section class="py-5 bg-light">
     <div class="container">
 
-        <div class="card produto-card border-0 rounded-4 p-3">
+        <div class="card shadow-sm border-0 rounded-4 p-4">
             <div class="row align-items-center">
 
-                <!-- GALERIA ESQUERDA -->
-                <div class="col-md-6">
-                    <div class="row">
-
-                        <div class="col-2">
-                            <div class="d-flex flex-column gap-2">
-
-                                <img src="/img/Granitina.jpg"
-                                     class="img-fluid border rounded miniatura ativa"
-                                     style="cursor:pointer;"
-                                     onclick="trocarImagem(this)">
-
-                                <img src="/img/resultado2.jpg"
-                                     class="img-fluid border rounded miniatura"
-                                     style="cursor:pointer;"
-                                     onclick="trocarImagem(this)">
-
-                                <img src="/img/resultado3.jpg"
-                                     class="img-fluid border rounded miniatura"
-                                     style="cursor:pointer;"
-                                     onclick="trocarImagem(this)">
-                            </div>
-                        </div>
-
-                        <div class="col-10">
-                            <img id="imagemPrincipal"
-                                 src="/img/Granitina.jpg"
-                                 class="img-fluid rounded border"
-                                 style="width:100%; max-height:380px; object-fit:contain; background:#fff;">
-                        </div>
-
-                    </div>
+                <!-- IMAGEM -->
+                <div class="col-md-5">
+                    <img src="/img/Granitina.jpg"
+                         class="img-fluid rounded"
+                         alt="Granitina">
                 </div>
 
-                <!-- INFO DIREITA -->
-                <div class="col-md-6 p-4">
+                <!-- INFO -->
+                <div class="col-md-7">
 
-                    <span class="selo-venda">Mais vendido</span>
+                    <span class="badge bg-warning text-dark mb-2">
+                        Mais vendido
+                    </span>
 
-                    <h2 class="fw-bold produto-titulo">
+                    <h2 class="fw-bold text-primary">
                         Granitina Malha 8 - 4kg
                     </h2>
 
-                    <p class="produto-extra">
+                    <p class="text-muted">
                         Produto ideal para grafiato e acabamento, com aplicação prática e ótima apresentação final.
                     </p>
 
-                    <h3 class="produto-preco">
+                    <h3 class="text-success fw-bold">
                         R$ 50,00
                     </h3>
 
-                    <div class="infos-rapidas">
-                        <span class="info-chip">Estoque: 100 kg</span>
-                        <span class="info-chip">Atendimento rápido</span>
-                        <span class="info-chip">Venda direta</span>
+                    <div class="mb-3">
+                        <span class="badge bg-light text-dark me-2">Estoque: 100 kg</span>
+                        <span class="badge bg-light text-dark me-2">Atendimento rápido</span>
+                        <span class="badge bg-light text-dark">Venda direta</span>
                     </div>
 
-                    <a href="/produto/1" class="btn btn-outline-dark me-2">
-                        Ver detalhes
-                    </a>
-
                     <a href="https://wa.me/5511954307383"
-                       class="btn btn-whats">
+                       class="btn btn-success btn-lg">
                         Comprar no WhatsApp
                     </a>
 
@@ -291,30 +262,112 @@
     </div>
 </section>
 
-<!-- FICHA -->
-<div class="container my-4">
+<!-- DETALHES DO PRODUTO -->
+<section class="py-5 mt-4">
+    <div class="container">
 
-    <button class="btn btn-outline-secondary mb-3"
-            data-bs-toggle="collapse"
-            data-bs-target="#ficha">
-        Ver ficha técnica
-    </button>
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
 
-    <div id="ficha" class="collapse">
+            <h4 class="fw-bold mb-3 text-primary">
+                Detalhes do Produto
+            </h4>
 
-        <div class="card ficha-card border-0 shadow-sm rounded-4 p-4">
-
-            <h5 class="fw-bold mb-3 section-title">Ficha Técnica</h5>
-
-            <p class="text-secondary mb-0">
-                SUGESTÃO: Para dar uma melhor qualidade ao seu Grafiato, acrescente de 200 a 250ml de parafina e 2kg a 3kg de Granitina Malha 40. A Granitina malha 40 deixará a massa mais solta e a parafina ajuda a deslizar melhor a Granitina malha 10 na massa. Estes mesmos produtos são usados para a produção do Grafiato Industrial.
+            <p class="text-secondary">
+                A Granitina é ideal para grafiato e acabamento decorativo, oferecendo textura uniforme
+                e excelente aparência final.
             </p>
+
+            <div class="row mt-3">
+
+                <div class="col-md-4 mb-3">
+                    <div class="border rounded-3 p-3 h-100 bg-light">
+                        <h6 class="fw-bold mb-2">Aplicação</h6>
+                        <p class="text-secondary mb-0">
+                            Indicada para uso em grafiato e acabamento de paredes.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="border rounded-3 p-3 h-100 bg-light">
+                        <h6 class="fw-bold mb-2">Rendimento</h6>
+                        <p class="text-secondary mb-0">
+                            Aproximadamente 24 a 25kg de massa, cobrindo de 10 a 12 m².
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="border rounded-3 p-3 h-100 bg-light">
+                        <h6 class="fw-bold mb-2">Preparo</h6>
+                        <p class="text-secondary mb-0">
+                            Misturar com argamassa e adicionar água até atingir o ponto ideal.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- IMAGENS -->
+            <div class="row mt-2">
+
+                <div class="col-md-4 mb-3">
+                    <img src="/img/Granitina.jpg"
+                         class="img-fluid rounded border">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <img src="/img/resultado2.jpg"
+                         class="img-fluid rounded border">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <img src="/img/resultado3.jpg"
+                         class="img-fluid rounded border">
+                </div>
+
+            </div>
 
         </div>
 
     </div>
+</section>
 
-</div>
+<!-- FICHA TÉCNICA -->
+<section class="pb-5">
+    <div class="container">
+
+        <button class="btn btn-outline-secondary mb-3"
+                data-bs-toggle="collapse"
+                data-bs-target="#ficha">
+            Ver ficha técnica
+        </button>
+
+        <div id="ficha" class="collapse">
+
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+
+                <h5 class="fw-bold mb-3 text-primary">
+                    Ficha Técnica
+                </h5>
+
+                <p class="text-secondary mb-0">
+                    SUGESTÃO: Para dar uma melhor qualidade ao seu Grafiato, acrescente de 200 a 250ml de parafina
+                    e 2kg a 3kg de Granitina Malha 40. A Granitina malha 40 deixará a massa mais solta e facilitará a aplicação.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
 
 <script>
 function trocarImagem(elemento) {
