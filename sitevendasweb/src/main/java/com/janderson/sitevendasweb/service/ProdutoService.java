@@ -90,11 +90,12 @@ public class ProdutoService {
     public List<Produto> pesquisarProdutos(String nome) {
 
         if (nome == null || nome.isBlank()) {
-            return produtoRepository.findByAtivoTrue();
+            return produtoRepository.findByAtivoTrueAndEstoqueGreaterThan(0);
         }
 
         nome = nome.trim();
 
-        return produtoRepository.findByNomeContainingIgnoreCaseAndAtivoTrue(nome);
+        return produtoRepository
+                .findByNomeContainingIgnoreCaseAndAtivoTrueAndEstoqueGreaterThan(nome, 0);
     }
 }

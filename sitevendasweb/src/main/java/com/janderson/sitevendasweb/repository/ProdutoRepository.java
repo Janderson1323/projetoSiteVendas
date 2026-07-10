@@ -8,9 +8,16 @@ import com.janderson.sitevendasweb.entity.Produto;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
+    // ADMIN - busca todos os produtos pelo nome
     List<Produto> findByNomeContainingIgnoreCase(String nome);
 
-    List<Produto> findByAtivoTrue();
 
-    List<Produto> findByNomeContainingIgnoreCaseAndAtivoTrue(String nome);
+    // CLIENTE - lista somente produtos ativos e com estoque
+    List<Produto> findByAtivoTrueAndEstoqueGreaterThan(Integer estoque);
+
+
+    // CLIENTE - busca pelo nome, somente ativos e com estoque
+    List<Produto> findByNomeContainingIgnoreCaseAndAtivoTrueAndEstoqueGreaterThan(
+            String nome, Integer estoque);
+
 }
