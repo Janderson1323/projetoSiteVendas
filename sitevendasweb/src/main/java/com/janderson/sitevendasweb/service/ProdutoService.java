@@ -19,8 +19,20 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    
     public List<Produto> listarProdutos() {
         return produtoRepository.findAll();
+    }
+    
+    public List<Produto> pesquisarTodosProdutos(String nome) {
+
+        if (nome == null || nome.isBlank()) {
+            return produtoRepository.findAll();
+        }
+
+        nome = nome.trim();
+
+        return produtoRepository.findByNomeContainingIgnoreCase(nome);
     }
 
     public Produto salvarProduto(Produto produto) {
@@ -68,14 +80,21 @@ public class ProdutoService {
         return null;
     }
     
-    public List<Produto> buscarPorNome(String nome) {
-        return produtoRepository.findByNomeContainingIgnoreCase(nome);
-    }
+   
     
     public Page<Produto> listarProdutosPaginados(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return produtoRepository.findAll(pageable);
     }
 
+    public List<Produto> pesquisarProdutos(String nome) {
 
+        if (nome == null || nome.isBlank()) {
+            return produtoRepository.findByAtivoTrue();
+        }
+
+        nome = nome.trim();
+
+        return produtoRepository.findByNomeContainingIgnoreCaseAndAtivoTrue(nome);
+    }
 }

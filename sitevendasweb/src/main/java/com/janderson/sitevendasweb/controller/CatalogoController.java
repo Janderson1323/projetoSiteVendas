@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.janderson.sitevendasweb.service.ProdutoService;
 
@@ -14,14 +15,16 @@ public class CatalogoController {
     private ProdutoService produtoService;
 
     @GetMapping("/catalogo")
-    public String catalogo(Model model) {
+    public String catalogo(
+            @RequestParam(required = false) String pesquisa,
+            Model model) {
+
         model.addAttribute("produtos",
-            produtoService.listarProdutos()
-                .stream()
-                .filter(produto -> Boolean.TRUE.equals(produto.getAtivo()))
-                .toList());
+                produtoService.pesquisarProdutos(pesquisa));
+
+        model.addAttribute("pesquisa", pesquisa);
+
         return "catalogo";
-    
     }
 
 }

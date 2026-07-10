@@ -71,9 +71,9 @@ public class ProdutoController {
 
     // BUSCAR POR NOME
     @GetMapping("/busca")
-    public List<Produto> buscarPorNome(@RequestParam String nome) {
+    public List<Produto> pesquisarTodosProdutos(@RequestParam String nome) {
 
-        return produtoService.buscarPorNome(nome);
+        return produtoService.pesquisarTodosProdutos(nome);
     }
 
     // PAGINAÇÃO

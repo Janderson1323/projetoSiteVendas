@@ -46,6 +46,22 @@
 <section class="py-5">
     <div class="container">
 
+        <!-- BARRA DE PESQUISA -->
+        <form th:action="@{/catalogo}" method="get" class="mb-5">
+            <div class="input-group">
+                <input
+                    type="text"
+                    name="pesquisa"
+                    class="form-control"
+                    placeholder="Pesquisar produto..."
+                    th:value="${pesquisa}">
+
+                <button class="btn btn-primary" type="submit">
+                    🔍 Pesquisar
+                </button>
+            </div>
+        </form>
+
         <div class="row g-4">
 
             <div class="col-sm-6 col-lg-4" th:each="produto : ${produtos}">
