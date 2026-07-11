@@ -20,8 +20,9 @@ import com.janderson.sitevendasweb.service.PedidoService;
 import com.janderson.sitevendasweb.service.ProdutoService;
 
 import jakarta.servlet.http.HttpSession;
-
+import com.janderson.sitevendasweb.entity.MeioPagamento;
 @Controller
+
 public class CarrinhoController {
 
     @Autowired
@@ -194,6 +195,7 @@ public class CarrinhoController {
                                   @RequestParam String cidade,
                                   @RequestParam String endereco,
                                   @RequestParam(required = false) String observacao,
+                                  @RequestParam MeioPagamento meioPagamento,
                                   Model model,
                                   HttpSession session) {
 
@@ -217,6 +219,7 @@ public class CarrinhoController {
         pedido.setObservacao(observacao);
         pedido.setDataPedido(LocalDateTime.now());
         pedido.setStatus(StatusPedido.PENDENTE);
+        pedido.setMeioPagamento(meioPagamento);
 
 
 
