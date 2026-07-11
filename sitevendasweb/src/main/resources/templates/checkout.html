@@ -86,6 +86,32 @@
                                 <label class="form-label fw-semibold">Observação</label>
                                 <textarea name="observacao" class="form-control" rows="4" placeholder="Ex.: referência para entrega, horário melhor para receber, etc."></textarea>
                             </div>
+							
+							<div class="mb-3">
+							    <label class="form-label fw-semibold">Meio de Pagamento</label>
+
+							    <select name="meioPagamento" class="form-select form-select-lg" required>
+
+							        <option value="">Selecione uma opção</option>
+
+							        <option value="PIX">
+							            PIX
+							        </option>
+
+							        <option value="CARTAO_CREDITO">
+							            Cartão de Crédito
+							        </option>
+
+							        <option value="CARTAO_DEBITO">
+							            Cartão de Débito
+							        </option>
+
+							        <option value="DINHEIRO">
+							            Dinheiro na entrega
+							        </option>
+
+							    </select>
+							</div>
 
                             <div class="alert alert-warning mt-4">
                                 <strong>Pagamento:</strong> o pagamento é combinado manualmente após o pedido.

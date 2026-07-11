@@ -24,7 +24,22 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
-    private Double valorTotal;
+    
+    @Enumerated(EnumType.STRING)
+    private MeioPagamento meioPagamento;
+    
+    
+    public MeioPagamento getMeioPagamento() {
+		return meioPagamento;
+	}
+
+	public void setMeioPagamento(MeioPagamento meioPagamento) {
+		this.meioPagamento = meioPagamento;
+	}
+
+	
+
+	private Double valorTotal;
 
     private String nomeCliente;
     private String telefoneCliente;
