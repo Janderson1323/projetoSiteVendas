@@ -35,6 +35,68 @@
                         <h2 class="fw-bold text-success mb-3">
                             Pedido recebido!
                         </h2>
+						
+						<div class="text-start bg-light rounded-3 p-3 mb-4">
+
+						    <h5 class="fw-bold mb-3">
+						        Resumo do pedido
+						    </h5>
+
+						    <p class="mb-1">
+						        <strong>Número:</strong>
+						        #<span th:text="${pedido.id}">1</span>
+						    </p>
+
+						    <p class="mb-1">
+						        <strong>Cliente:</strong>
+						        <span th:text="${pedido.nomeCliente}">
+						            Cliente
+						        </span>
+						    </p>
+
+						    <p class="mb-1">
+						        <strong>Status:</strong>
+						        <span class="badge bg-warning text-dark"
+						              th:text="${pedido.status}">
+						            PENDENTE
+						        </span>
+						    </p>
+
+						    <hr>
+
+						    <h6 class="fw-bold">
+						        Produtos:
+						    </h6>
+
+						    <div th:each="item : ${pedido.itens}">
+
+						        <p class="mb-1">
+						            <span th:text="${item.produto.nome}">
+						                Produto
+						            </span>
+
+						            -
+						            <span th:text="${item.quantidade}">
+						                1
+						            </span>
+						            kg
+
+						        </p>
+
+						    </div>
+
+
+						    <hr>
+
+						    <h5 class="fw-bold text-success">
+						        Total:
+						        R$
+						        <span th:text="${#numbers.formatDecimal(pedido.valorTotal,1,'POINT',2,'COMMA')}">
+						            0,00
+						        </span>
+						    </h5>
+
+						</div>
 
                         <p class="text-muted mb-4">
                             Seu pedido foi registrado com sucesso.

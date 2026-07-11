@@ -19,6 +19,8 @@ import com.janderson.sitevendasweb.entity.StatusPedido;
 import com.janderson.sitevendasweb.service.PedidoService;
 import com.janderson.sitevendasweb.service.ProdutoService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class CarrinhoController {
 
@@ -28,49 +30,84 @@ public class CarrinhoController {
     @Autowired
     private ProdutoService produtoService;
 
-    private List<ItemPedido> carrinho = new ArrayList<>();
+
+    private List<ItemPedido> getCarrinho(HttpSession session) {
+
+        List<ItemPedido> carrinho =
+                (List<ItemPedido>) session.getAttribute("carrinho");
+
+        if (carrinho == null) {
+            carrinho = new ArrayList<>();
+            session.setAttribute("carrinho", carrinho);
+        }
+
+        return carrinho;
+    }
+
 
     @PostMapping("/carrinho/adicionar/{id}")
     public String adicionarProduto(@PathVariable Long id,
-                                   @RequestParam(defaultValue = "1") Integer quantidade) {
+                                   @RequestParam(defaultValue = "1") Integer quantidade,
+                                   HttpSession session) {
+
+        List<ItemPedido> carrinho = getCarrinho(session);
 
         Produto produto = produtoService.buscarProdutoPorId(id);
+
 
         if (produto == null) {
             return "redirect:/catalogo";
         }
 
+
         if (quantidade == null || quantidade <= 0) {
             return "redirect:/catalogo";
         }
+
 
         if (produto.getEstoque() == null || produto.getEstoque() <= 0) {
             return "redirect:/catalogo";
         }
 
+
         ItemPedido itemExistente = null;
 
+
         for (ItemPedido item : carrinho) {
-            if (item.getProduto() != null && item.getProduto().getId().equals(id)) {
+
+            if (item.getProduto() != null &&
+                item.getProduto().getId().equals(id)) {
+
                 itemExistente = item;
                 break;
             }
         }
 
+
         if (itemExistente != null) {
-            int novaQuantidade = itemExistente.getQuantidade() + quantidade;
+
+            int novaQuantidade =
+                    itemExistente.getQuantidade() + quantidade;
+
 
             if (novaQuantidade > produto.getEstoque()) {
                 novaQuantidade = produto.getEstoque();
             }
 
+
             itemExistente.setQuantidade(novaQuantidade);
+
+
         } else {
+
+
             if (quantidade > produto.getEstoque()) {
                 quantidade = produto.getEstoque();
             }
 
+
             ItemPedido item = new ItemPedido();
+
             item.setProduto(produto);
             item.setQuantidade(quantidade);
             item.setPrecoUnitario(produto.getPreco());
@@ -78,38 +115,78 @@ public class CarrinhoController {
             carrinho.add(item);
         }
 
+
         return "redirect:/carrinho";
     }
 
+
+
     @GetMapping("/carrinho")
-    public String verCarrinho(Model model) {
+    public String verCarrinho(Model model,
+                              HttpSession session) {
+
+
+        List<ItemPedido> carrinho = getCarrinho(session);
+
+
         double total = carrinho.stream()
-                .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade())
+                .mapToDouble(item ->
+                    item.getPrecoUnitario() * item.getQuantidade())
                 .sum();
+
 
         model.addAttribute("itens", carrinho);
         model.addAttribute("total", total);
+
+
         return "carrinho";
     }
 
+
+
     @GetMapping("/carrinho/remover/{index}")
-    public String removerItem(@PathVariable int index) {
+    public String removerItem(@PathVariable int index,
+                              HttpSession session) {
+
+
+        List<ItemPedido> carrinho = getCarrinho(session);
+
+
         if (index >= 0 && index < carrinho.size()) {
             carrinho.remove(index);
         }
+
+
         return "redirect:/carrinho";
     }
 
+
+
+
     @GetMapping("/checkout")
-    public String exibirCheckout(Model model) {
+    public String exibirCheckout(Model model,
+                                 HttpSession session) {
+
+
+        List<ItemPedido> carrinho = getCarrinho(session);
+
+
         double total = carrinho.stream()
-                .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade())
+                .mapToDouble(item ->
+                    item.getPrecoUnitario() * item.getQuantidade())
                 .sum();
+
 
         model.addAttribute("itens", carrinho);
         model.addAttribute("total", total);
+
+
         return "checkout";
     }
+
+
+
+
 
     @PostMapping("/checkout/finalizar")
     public String finalizarPedido(@RequestParam String nomeCliente,
@@ -117,13 +194,22 @@ public class CarrinhoController {
                                   @RequestParam String cidade,
                                   @RequestParam String endereco,
                                   @RequestParam(required = false) String observacao,
-                                  Model model) {
+                                  Model model,
+                                  HttpSession session) {
+
+
+        List<ItemPedido> carrinho = getCarrinho(session);
+
+
 
         if (carrinho.isEmpty()) {
             return "redirect:/carrinho";
         }
 
+
+
         Pedido pedido = new Pedido();
+
         pedido.setNomeCliente(nomeCliente);
         pedido.setTelefoneCliente(telefoneCliente);
         pedido.setCidade(cidade);
@@ -132,38 +218,75 @@ public class CarrinhoController {
         pedido.setDataPedido(LocalDateTime.now());
         pedido.setStatus(StatusPedido.PENDENTE);
 
+
+
         double total = 0.0;
+
         List<ItemPedido> itensPedido = new ArrayList<>();
 
+
+
         for (ItemPedido itemCarrinho : carrinho) {
-            Produto produto = produtoService.buscarProdutoPorId(itemCarrinho.getProduto().getId());
+
+
+            Produto produto =
+                    produtoService.buscarProdutoPorId(
+                        itemCarrinho.getProduto().getId()
+                    );
+
+
 
             if (produto == null) {
                 continue;
             }
 
+
+
             if (produto.getEstoque() < itemCarrinho.getQuantidade()) {
                 return "redirect:/carrinho";
             }
 
-            produto.setEstoque(produto.getEstoque() - itemCarrinho.getQuantidade());
+
+
+            produto.setEstoque(
+                produto.getEstoque() -
+                itemCarrinho.getQuantidade()
+            );
+
+
             produtoService.salvarProduto(produto);
 
+
+
             ItemPedido itemPedido = new ItemPedido();
+
             itemPedido.setProduto(produto);
             itemPedido.setQuantidade(itemCarrinho.getQuantidade());
             itemPedido.setPrecoUnitario(itemCarrinho.getPrecoUnitario());
 
-            total += itemPedido.getQuantidade() * itemPedido.getPrecoUnitario();
+
+
+            total += itemPedido.getQuantidade()
+                    * itemPedido.getPrecoUnitario();
+
+
+
             itensPedido.add(itemPedido);
         }
+
+
 
         pedido.setValorTotal(total);
         pedido.setItens(itensPedido);
 
+
+
         pedidoService.salvarPedido(pedido);
 
+
+
         StringBuilder mensagem = new StringBuilder();
+
 
         mensagem.append("NOVO PEDIDO - GRANITINA\n\n");
 
@@ -172,38 +295,62 @@ public class CarrinhoController {
         mensagem.append("Cidade: ").append(cidade).append("\n");
         mensagem.append("Endereco: ").append(endereco).append("\n");
 
-        if (observacao != null && !observacao.isBlank()) {
-            mensagem.append("Observacao: ").append(observacao).append("\n");
-        }
 
-        mensagem.append("\n");
-        mensagem.append("Itens do pedido:\n");
+
+        mensagem.append("\nItens do pedido:\n");
+
+
 
         for (ItemPedido item : itensPedido) {
-            double subtotalItem = item.getQuantidade() * item.getPrecoUnitario();
+
+
+            double subtotal =
+                    item.getQuantidade()
+                    * item.getPrecoUnitario();
+
+
 
             mensagem.append("\n");
-            mensagem.append("- ").append(item.getProduto().getNome()).append("\n");
-            mensagem.append("  Qtd: ").append(item.getQuantidade()).append("\n");
-            mensagem.append("  Preco unitario: R$ ").append(String.format("%.2f", item.getPrecoUnitario())).append("\n");
-            mensagem.append("  Subtotal: R$ ").append(String.format("%.2f", subtotalItem)).append("\n");
+            mensagem.append("- ")
+                    .append(item.getProduto().getNome())
+                    .append("\n");
+
+            mensagem.append("Qtd: ")
+                    .append(item.getQuantidade())
+                    .append("\n");
+
+
+            mensagem.append("Subtotal: R$ ")
+                    .append(String.format("%.2f", subtotal))
+                    .append("\n");
         }
 
-        mensagem.append("\n");
-        mensagem.append("TOTAL DO PEDIDO: R$ ").append(String.format("%.2f", total)).append("\n");
-        mensagem.append("\n");
-        mensagem.append("Aguardando confirmacao.");
 
-        String linkWhatsapp = "https://wa.me/5511954307383?text="
-                + java.net.URLEncoder.encode(mensagem.toString(), java.nio.charset.StandardCharsets.UTF_8);
+
+        mensagem.append("\nTOTAL: R$ ")
+                .append(String.format("%.2f", total));
+
+
+
+        String linkWhatsapp =
+                "https://wa.me/5511954307383?text="
+                + java.net.URLEncoder.encode(
+                    mensagem.toString(),
+                    java.nio.charset.StandardCharsets.UTF_8
+                );
+
+
 
         model.addAttribute("pedido", pedido);
         model.addAttribute("linkWhatsapp", linkWhatsapp);
 
+
+
         carrinho.clear();
 
+
+
         return "pedido-confirmado";
-        
     }
-    
+
 }

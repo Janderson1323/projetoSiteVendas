@@ -145,6 +145,16 @@
                             Marcar como CANCELADO
                         </button>
                     </form>
+					
+					<form th:action="@{/admin/pedidos/{id}/excluir(id=${pedido.id})}"
+					      method="post"
+					      onsubmit="return confirm('Tem certeza que deseja excluir este pedido? Esta ação não poderá ser desfeita.');">
+
+					    <button type="submit" class="btn btn-danger w-100 mt-3">
+					        🗑 Excluir Pedido
+					    </button>
+
+					</form>
 
                     <hr>
 

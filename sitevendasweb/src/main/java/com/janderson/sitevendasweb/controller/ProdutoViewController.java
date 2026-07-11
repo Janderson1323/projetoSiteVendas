@@ -76,4 +76,14 @@ public class ProdutoViewController {
 
         return "redirect:/admin/produtos";
     }
+    
+    @GetMapping("/produto/{id}")
+    public String detalheProduto(@PathVariable Long id, Model model) {
+
+        Produto produto = produtoService.buscarProdutoPorId(id);
+
+        model.addAttribute("produto", produto);
+
+        return "produto-detalhe";
+    }
 }

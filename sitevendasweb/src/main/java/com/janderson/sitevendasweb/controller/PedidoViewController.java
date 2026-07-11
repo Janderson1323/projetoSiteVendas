@@ -12,6 +12,9 @@ import com.janderson.sitevendasweb.entity.Pedido;
 import com.janderson.sitevendasweb.entity.StatusPedido;
 import com.janderson.sitevendasweb.service.PedidoService;
 
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
 @Controller
 @RequestMapping("/admin/pedidos")
 public class PedidoViewController {
@@ -39,5 +42,13 @@ public class PedidoViewController {
         model.addAttribute("statusSelecionado", status);
 
         return "admin/pedidos";
+    }
+    
+    @PostMapping("/{id}/excluir")
+    public String excluirPedido(@PathVariable Long id) {
+
+        pedidoService.excluirPedido(id);
+
+        return "redirect:/admin/pedidos";
     }
 }
