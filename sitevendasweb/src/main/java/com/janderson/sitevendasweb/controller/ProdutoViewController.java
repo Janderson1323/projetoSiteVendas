@@ -97,14 +97,7 @@ public class ProdutoViewController {
                 }
             }
             
-            for (ItemPedido item : itens) {
-                System.out.println("ITEM ID: " + item.getId());
-
-                if (item.getPedido() != null) {
-                    System.out.println("PEDIDO OBJETO: " + item.getPedido());
-                    System.out.println("PEDIDO ID: " + item.getPedido().getId());
-                }
-            }
+            
 
             model.addAttribute("pedidos", itens);
 
