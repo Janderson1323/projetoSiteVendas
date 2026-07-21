@@ -50,13 +50,12 @@ public class Pedido {
     private String endereco;
     private String observacao;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable(
-        name = "pedido_itens",
-        joinColumns = @JoinColumn(name = "pedido_id"),
-        inverseJoinColumns = @JoinColumn(name = "itens_id")
-    )
-    private List<ItemPedido> itens = new ArrayList<>();
+    @OneToMany(
+    	    mappedBy = "pedido",
+    	    cascade = CascadeType.ALL,
+    	    orphanRemoval = true
+    	)
+    	private List<ItemPedido> itens = new ArrayList<>();
     public Long getId() {
         return id;
     }

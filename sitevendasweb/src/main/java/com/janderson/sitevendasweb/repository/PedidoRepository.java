@@ -12,4 +12,6 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     List<Pedido> findByStatus(StatusPedido status);
 
     long countByStatus(StatusPedido status);
+
+    List<Pedido> findByItens_Id(Long itemId);
 }

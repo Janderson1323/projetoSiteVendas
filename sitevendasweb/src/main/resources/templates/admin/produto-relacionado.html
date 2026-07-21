@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -13,66 +14,55 @@
 
 <div class="container py-5">
 
-<div class="card shadow">
+    <div class="card shadow">
 
-<div class="card-body text-center">
+        <div class="card-body text-center">
 
-<h3 class="text-danger mb-3">
-Não foi possível excluir este produto
-</h3>
+            <h3 class="text-danger mb-3">
+                Não foi possível excluir este produto
+            </h3>
 
-<p>
-O produto está vinculado a pedidos existentes e não pode ser removido.
-</p>
-
-
-<div class="alert alert-warning">
-
-Pedidos que utilizam este produto:
-
-<ul class="mb-0">
-
-<li th:each="pedido : ${pedidos}">
-	<li th:each="pedido : ${pedidos}">
-	    Pedido #		<div class="alert alert-warning">
-
-		Pedidos que utilizam este produto:
-
-		<ul class="mb-0">
-
-		<li th:each="item : ${pedidos}">
-		    
-		    Item ID:
-		    <span th:text="${item.id}"></span>
-
-		    -
-
-		    Pedido:
-		    <span th:text="${item.pedido != null ? item.pedido.id : 'SEM PEDIDO'}"></span>
-
-		</li>
-
-		</ul>
-
-		</div>
-	</li>
-</li>
-
-</ul>
-
-</div>
+            <p>
+                O produto está vinculado a pedidos existentes e não pode ser removido.
+            </p>
 
 
-<a th:href="@{/admin/produtos}" class="btn btn-primary">
-Voltar para produtos
-</a>
+            <div class="alert alert-warning">
+
+                <p class="mb-2">
+                    Pedidos que utilizam este produto:
+                </p>
+
+                <ul class="mb-0">
+
+                    <li th:each="item : ${pedidos}">
+
+                        Item ID:
+                        <span th:text="${item.id}"></span>
+
+                        -
+
+                        Pedido:
+                        <span th:text="${item.pedido != null ? item.pedido.id : 'SEM PEDIDO'}"></span>
+
+                    </li>
+
+                </ul>
+
+            </div>
 
 
-</div>
+            <a th:href="@{/admin/produtos}" class="btn btn-primary">
+                Voltar para produtos
+            </a>
 
-</div>
+
+        </div>
+
+    </div>
 
 </div>
 
 </body>
 </html>
+```

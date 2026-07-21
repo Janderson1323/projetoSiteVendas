@@ -263,6 +263,8 @@ public class CarrinhoController {
 
             ItemPedido itemPedido = new ItemPedido();
 
+            itemPedido.setPedido(pedido);   // <-- NOVA LINHA
+
             itemPedido.setProduto(produto);
             itemPedido.setQuantidade(itemCarrinho.getQuantidade());
             itemPedido.setPrecoUnitario(itemCarrinho.getPrecoUnitario());
