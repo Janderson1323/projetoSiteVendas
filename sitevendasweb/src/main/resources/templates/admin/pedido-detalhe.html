@@ -136,29 +136,55 @@
 
                     <hr>
 
-                    <h5 class="mb-3">Alterar Status</h5>
+					<h5 class="mb-3">Alterar Status</h5>
 
-                    <form th:action="@{/admin/pedidos/{id}/status(id=${pedido.id})}" method="post">
-                        <button name="status" value="PENDENTE"
-                                class="btn btn-warning mb-2 w-100">
-                            Marcar como PENDENTE
-                        </button>
+					<form th:action="@{/admin/pedidos/{id}/status(id=${pedido.id})}" method="post">
 
-                        <button name="status" value="ENVIADO"
-                                class="btn btn-info mb-2 w-100">
-                            Marcar como ENVIADO
-                        </button>
+					    <div class="dropdown">
+					        <button class="btn btn-primary dropdown-toggle w-100"
+					                type="button"
+					                data-bs-toggle="dropdown">
+					            Alterar status
+					        </button>
 
-                        <button name="status" value="ENTREGUE"
-                                class="btn btn-success mb-2 w-100">
-                            Marcar como ENTREGUE
-                        </button>
+					        <ul class="dropdown-menu w-100">
 
-                        <button name="status" value="CANCELADO"
-                                class="btn btn-danger w-100">
-                            Marcar como CANCELADO
-                        </button>
-                    </form>
+					            <li>
+					                <button class="dropdown-item"
+					                        name="status"
+					                        value="PENDENTE">
+					                    🟡 PENDENTE
+					                </button>
+					            </li>
+
+					            <li>
+					                <button class="dropdown-item"
+					                        name="status"
+					                        value="ENVIADO">
+					                    🔵 ENVIADO
+					                </button>
+					            </li>
+
+					            <li>
+					                <button class="dropdown-item"
+					                        name="status"
+					                        value="ENTREGUE">
+					                    🟢 ENTREGUE
+					                </button>
+					            </li>
+
+					            <li>
+					                <button class="dropdown-item"
+					                        name="status"
+					                        value="CANCELADO">
+					                    🔴 CANCELADO
+					                </button>
+					            </li>
+
+					        </ul>
+					    </div>
+
+					</form>
 					
 					<form th:action="@{/admin/pedidos/{id}/excluir(id=${pedido.id})}"
 					      method="post"
@@ -187,6 +213,8 @@
     </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

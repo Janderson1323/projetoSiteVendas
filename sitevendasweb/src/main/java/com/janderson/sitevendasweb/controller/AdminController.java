@@ -13,8 +13,12 @@ import com.janderson.sitevendasweb.entity.Produto;
 import com.janderson.sitevendasweb.entity.StatusPedido;
 import com.janderson.sitevendasweb.service.PedidoService;
 import com.janderson.sitevendasweb.service.ProdutoService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
+
 public class AdminController {
 
     @Autowired
@@ -56,4 +60,22 @@ public class AdminController {
 
         return "admin/pedido-detalhe";
     }
+    
+    @PostMapping("/admin/pedidos/{id}/status")
+    public String atualizarStatus(
+            @PathVariable Long id,
+            @RequestParam StatusPedido status
+    ) {
+
+        pedidoService.atualizarStatus(id, status);
+
+        return "redirect:/admin/pedidos/" + id;
+    }
+    
+    @GetMapping("/teste")
+    public String teste() {
+        return "teste";
+    }
+    
+    
 }
