@@ -10,8 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.janderson.sitevendasweb.entity.Produto;
+import com.janderson.sitevendasweb.repository.ItemPedidoRepository;
 import com.janderson.sitevendasweb.repository.ProdutoRepository;
-
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProdutoService {
@@ -19,11 +20,13 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
+
     public List<Produto> listarProdutos() {
         return produtoRepository.findAll();
     }
-    
+
     public List<Produto> pesquisarTodosProdutos(String nome) {
 
         if (nome == null || nome.isBlank()) {
@@ -52,20 +55,25 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-
     public Produto buscarProdutoPorId(Long id) {
         Optional<Produto> produto = produtoRepository.findById(id);
         return produto.orElse(null);
     }
 
+    @Transactional
     public void deletarProduto(Long id) {
+
+        itemPedidoRepository.deleteByProduto_Id(id);
+
         produtoRepository.deleteById(id);
     }
 
     public Produto atualizarProduto(Long id, Produto produtoAtualizado) {
+
         Optional<Produto> produtoExistente = produtoRepository.findById(id);
 
         if (produtoExistente.isPresent()) {
+
             Produto produto = produtoExistente.get();
 
             produto.setNome(produtoAtualizado.getNome());
@@ -79,11 +87,11 @@ public class ProdutoService {
 
         return null;
     }
-    
-   
-    
+
     public Page<Produto> listarProdutosPaginados(int page, int size) {
+
         Pageable pageable = PageRequest.of(page, size);
+
         return produtoRepository.findAll(pageable);
     }
 

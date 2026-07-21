@@ -41,16 +41,14 @@ public class ProdutoViewController {
         return "admin/produto-form";
     }
 
-    @PostMapping("/admin/produtos/excluir/{id}")
+    @PostMapping("/admin/produtos/{id}/excluir")
     public String excluirProduto(@PathVariable Long id) {
-        Produto produto = produtoService.buscarProdutoPorId(id);
 
-        if (produto != null) {
-            produto.setAtivo(false);
-            produtoService.salvarProduto(produto);
-        }
+        produtoService.deletarProduto(id);
 
         return "redirect:/admin/produtos";
+    
+
     }
 
     @GetMapping("/admin/produtos/ativar/{id}")

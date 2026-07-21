@@ -91,6 +91,17 @@ Ativar
 </a>
 </span>
 
+<form th:action="@{/admin/produtos/{id}/excluir(id=${produto.id})}"
+      method="post"
+      onsubmit="return confirm('Deseja realmente excluir este produto?')"
+      style="display:inline">
+
+    <button class="btn btn-danger btn-sm">
+        Excluir
+    </button>
+
+</form>
+
 </td>
 
 </tr>
