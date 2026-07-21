@@ -1,6 +1,7 @@
 package com.janderson.sitevendasweb.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -10,6 +11,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -47,9 +50,13 @@ public class Pedido {
     private String endereco;
     private String observacao;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<ItemPedido> itens;
-
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(
+        name = "pedido_itens",
+        joinColumns = @JoinColumn(name = "pedido_id"),
+        inverseJoinColumns = @JoinColumn(name = "itens_id")
+    )
+    private List<ItemPedido> itens = new ArrayList<>();
     public Long getId() {
         return id;
     }

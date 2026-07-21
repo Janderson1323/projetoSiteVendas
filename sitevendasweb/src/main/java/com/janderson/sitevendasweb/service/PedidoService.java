@@ -29,7 +29,15 @@ public class PedidoService {
     }
 
     public void excluirPedido(Long id) {
-        pedidoRepository.deleteById(id);
+
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+        pedido.getItens().clear();
+
+        pedidoRepository.save(pedido);
+
+        pedidoRepository.delete(pedido);
     }
   
 
