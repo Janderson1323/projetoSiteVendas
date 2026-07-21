@@ -16,7 +16,10 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
 
 <h1 class="fw-bold">Lista de Produtos</h1>
-
+<div th:if="${erro}" class="alert alert-danger">
+	    <span th:text="${erro}"></span>
+	</div>
+	
 <div>
 <a href="/admin" class="btn btn-secondary me-2">Painel Admin</a>
 <a href="/admin/produtos/novo" class="btn btn-primary">Novo Produto</a>
@@ -91,24 +94,21 @@ Ativar
 </a>
 </span>
 
-<<<<<<< HEAD
+
 <form th:action="@{/admin/produtos/{id}/excluir(id=${produto.id})}"
       method="post"
-      onsubmit="return confirm('Deseja realmente excluir este produto?')"
-      style="display:inline">
+      style="display:inline"
+      onsubmit="return confirm('Deseja realmente excluir este produto?')">
 
-    <button class="btn btn-danger btn-sm">
-=======
-<form th:action="@{/admin/produtos/excluir/{id}(id=${produto.id})}" method="post" style="display:inline">
-
-    <button type="submit"
-            class="btn btn-danger"
-            onclick="return confirm('Deseja excluir este produto?')">
->>>>>>> 1feb2c6 (criado botexcluirprodutospedido)
+    <button type="submit" class="btn btn-danger btn-sm">
         Excluir
     </button>
 
+	
+	
 </form>
+
+
 
 </td>
 

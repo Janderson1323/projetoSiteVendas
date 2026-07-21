@@ -8,11 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.janderson.sitevendasweb.entity.ItemPedido;
 import com.janderson.sitevendasweb.entity.Produto;
 import com.janderson.sitevendasweb.repository.ItemPedidoRepository;
 import com.janderson.sitevendasweb.repository.ProdutoRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProdutoService {
@@ -63,10 +64,27 @@ public class ProdutoService {
     @Transactional
     public void deletarProduto(Long id) {
 
-        itemPedidoRepository.deleteByProduto_Id(id);
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-        produtoRepository.deleteById(id);
+        List<ItemPedido> itens = itemPedidoRepository.findByProduto_Id(id);
+
+        if (!itens.isEmpty()) {
+
+            ItemPedido item = itens.get(0);
+
+            throw new RuntimeException(
+                "Não é possível excluir o produto '" 
+                + produto.getNome() 
+                + "'. Ele está relacionado ao pedido #" 
+                + item.getPedido().getId()
+            );
+        }
+
+        produtoRepository.delete(produto);
     }
+
+    
 
     public Produto atualizarProduto(Long id, Produto produtoAtualizado) {
 
