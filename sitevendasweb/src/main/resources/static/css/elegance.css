@@ -1,0 +1,181 @@
+
+
+
+/* ===========================================================
+   ELEGANCE V2
+   PALETA DE CORES
+=========================================================== */
+
+:root {
+
+    --cor-fundo: #F7F2EA;
+    --cor-clara: #EFE6D8;
+
+    --cor-marrom: #2B2018;
+    --cor-madeira: #5C3B2A;
+
+    --cor-dourado: #B08A57;
+
+    --cor-texto: #31261F;
+
+    --cor-verde: #198754;
+
+}
+
+    
+		body{
+
+		    background: var(--cor-fundo);
+		    color: var(--cor-texto);
+
+		}
+    
+
+		.navbar{
+
+		    background: var(--cor-marrom) !important;
+
+		}
+
+    .navbar-brand {
+        letter-spacing: 0.5px;
+    }
+
+	.hero-section{
+
+	    background: var(--cor-fundo);
+
+	}
+	.hero-title,
+	.section-title,
+	.produto-titulo{
+
+	    color: var(--cor-marrom);
+
+	}
+
+	.btn-marca{
+
+	    background: var(--cor-marrom);
+	    border-color: var(--cor-marrom);
+	    color:white;
+
+	}
+
+	.btn-marca:hover{
+
+	    background: var(--cor-madeira);
+	    border-color: var(--cor-madeira);
+
+	}
+
+    .btn-marca:hover {
+        background-color: #1e40af;
+        border-color: #1e40af;
+        color: white;
+    }
+
+    .btn-whats {
+        background-color: #198754;
+        border-color: #198754;
+        color: white;
+    }
+
+    .btn-whats:hover {
+        background-color: #157347;
+        border-color: #157347;
+        color: white;
+    }
+
+    .produto-card {
+        border:1px solid #E8DDCF;
+        box-shadow: 0 10px 28px rgba(29, 78, 216, 0.08) !important;
+        background:#FFFDFC;
+        overflow: hidden;
+    }
+
+    .miniatura {
+        border: 2px solid transparent !important;
+        transition: all 0.2s ease;
+    }
+
+    .miniatura.ativa {
+        border: 2px solid #1d4ed8 !important;
+        box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.12);
+    }
+
+    .produto-preco {
+        color: #198754;
+        font-size: 2rem;
+        font-weight: 800;
+    }
+
+    .ficha-card {
+        border: 1px solid #e5e7eb !important;
+        background: #ffffff;
+    }
+
+    .beneficios-section {
+        background: #ffffff;
+    }
+
+    .beneficio-titulo {
+        color: #0f172a;
+    }
+
+    .cta-section {
+        background: linear-gradient(180deg, #eef4ff 0%, #f5f7fb 100%);
+    }
+
+    footer {
+        background: linear-gradient(90deg, #111827, #1f2937) !important;
+    }
+
+    footer .text-muted {
+        color: rgba(255,255,255,0.72) !important;
+    }
+
+    .selo-topo {
+        display: inline-block;
+        background: #e8f0ff;
+        color: #1d4ed8;
+        font-weight: 700;
+        font-size: 0.85rem;
+        padding: 8px 14px;
+        border-radius: 999px;
+        margin-bottom: 14px;
+    }
+
+    .selo-venda {
+        display: inline-block;
+        background: #fff7e6;
+        color: #b45309;
+        font-weight: 700;
+        font-size: 0.82rem;
+        padding: 6px 12px;
+        border-radius: 999px;
+        margin-bottom: 12px;
+    }
+
+    .infos-rapidas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+        margin-bottom: 18px;
+    }
+
+    .info-chip {
+        background: #f3f4f6;
+        color: #334155;
+        border-radius: 999px;
+        padding: 7px 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .produto-extra {
+        color: #475569;
+        margin-bottom: 18px;
+    }
+

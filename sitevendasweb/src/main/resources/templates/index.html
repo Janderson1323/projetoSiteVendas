@@ -2,152 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<title>Elegance Tapetes</title>
+    <meta charset="UTF-8">
+    <title>Elegance Tapetes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
-<style>
-    body {
-        background: #f5f7fb;
-    }
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    .navbar {
-        background: linear-gradient(90deg, #0f172a, #1e293b) !important;
-    }
-
-    .navbar-brand {
-        letter-spacing: 0.5px;
-    }
-
-    .hero-section {
-        background: linear-gradient(180deg, #eef4ff 0%, #f8fbff 100%);
-    }
-
-    .hero-title,
-    .section-title,
-    .produto-titulo {
-        color: #1d4ed8;
-    }
-
-    .btn-marca {
-        background-color: #1d4ed8;
-        border-color: #1d4ed8;
-        color: white;
-    }
-
-    .btn-marca:hover {
-        background-color: #1e40af;
-        border-color: #1e40af;
-        color: white;
-    }
-
-    .btn-whats {
-        background-color: #198754;
-        border-color: #198754;
-        color: white;
-    }
-
-    .btn-whats:hover {
-        background-color: #157347;
-        border-color: #157347;
-        color: white;
-    }
-
-    .produto-card {
-        border: 1px solid #dbe7ff !important;
-        box-shadow: 0 10px 28px rgba(29, 78, 216, 0.08) !important;
-        background: #ffffff;
-        overflow: hidden;
-    }
-
-    .miniatura {
-        border: 2px solid transparent !important;
-        transition: all 0.2s ease;
-    }
-
-    .miniatura.ativa {
-        border: 2px solid #1d4ed8 !important;
-        box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.12);
-    }
-
-    .produto-preco {
-        color: #198754;
-        font-size: 2rem;
-        font-weight: 800;
-    }
-
-    .ficha-card {
-        border: 1px solid #e5e7eb !important;
-        background: #ffffff;
-    }
-
-    .beneficios-section {
-        background: #ffffff;
-    }
-
-    .beneficio-titulo {
-        color: #0f172a;
-    }
-
-    .cta-section {
-        background: linear-gradient(180deg, #eef4ff 0%, #f5f7fb 100%);
-    }
-
-    footer {
-        background: linear-gradient(90deg, #111827, #1f2937) !important;
-    }
-
-    footer .text-muted {
-        color: rgba(255,255,255,0.72) !important;
-    }
-
-    .selo-topo {
-        display: inline-block;
-        background: #e8f0ff;
-        color: #1d4ed8;
-        font-weight: 700;
-        font-size: 0.85rem;
-        padding: 8px 14px;
-        border-radius: 999px;
-        margin-bottom: 14px;
-    }
-
-    .selo-venda {
-        display: inline-block;
-        background: #fff7e6;
-        color: #b45309;
-        font-weight: 700;
-        font-size: 0.82rem;
-        padding: 6px 12px;
-        border-radius: 999px;
-        margin-bottom: 12px;
-    }
-
-    .infos-rapidas {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 14px;
-        margin-bottom: 18px;
-    }
-
-    .info-chip {
-        background: #f3f4f6;
-        color: #334155;
-        border-radius: 999px;
-        padding: 7px 12px;
-        font-size: 0.9rem;
-        font-weight: 600;
-    }
-
-    .produto-extra {
-        color: #475569;
-        margin-bottom: 18px;
-    }
-</style>
-
+    <link rel="stylesheet"
+          th:href="@{/css/elegance.css}">
 </head>
 
 <body>
