@@ -19,11 +19,10 @@
 <body>
 
 <!-- HEADER -->
-<!-- HEADER -->
-<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
 
-        <a class="navbar-brand fw-bold fs-3" href="/">
+        <a class="navbar-brand" href="/">
             ELEGANCE
         </a>
 
@@ -37,276 +36,270 @@
         <div class="collapse navbar-collapse" id="menu">
 
             <ul class="navbar-nav mx-auto">
-
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Início</a>
+                    <a class="nav-link active" href="/">Início</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/catalogo">Catálogo</a>
+                    <a class="nav-link" href="/catalogo">Tapetes</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mantas</a>
+                    <a class="nav-link" href="#colecoes">Coleções</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Toalhas</a>
+                    <a class="nav-link" href="#sobre">Nossa seleção</a>
                 </li>
-
             </ul>
 
-            <a href="/carrinho" class="btn btn-outline-light">
-                <i class="bi bi-cart3"></i> Carrinho
+            <a href="/carrinho" class="btn btn-carrinho">
+                <i class="bi bi-bag"></i>
+                Carrinho
             </a>
 
         </div>
-
     </div>
 </nav>
 
 <!-- HERO -->
-<section class="py-5 hero-section">
+<header class="hero-premium">
 
-<div class="container">
+    <div class="hero-overlay"></div>
 
-<div class="row align-items-center">
+    <div class="container hero-conteudo">
 
-<div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-7">
 
-<span class="badge bg-dark mb-3">
-Nova Coleção
-</span>
+				<span class="hero-selo">
+				    Tapetes selecionados para interiores marcantes
+				</span>
+				
+                <h1>
+                    Ambientes marcantes começam pelo chão.
+                </h1>
 
-<h1 class="display-4 fw-bold">
+				<p>
+				    Peças escolhidas para criar ambientes acolhedores,
+				    sofisticados e cheios de personalidade.
+				</p>
 
-Transforme sua casa com elegância.
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/catalogo" class="btn btn-dourado btn-lg">
+                        Explorar coleção
+                    </a>
 
-</h1>
-
-<p class="lead text-secondary">
-
-Tapetes premium, mantas e toalhas
-selecionados para deixar seu ambiente
-mais aconchegante.
-
-</p>
-
-<a href="/catalogo"
-class="btn btn-dark btn-lg">
-
-Ver Coleção
-
-</a>
-
-</div>
-
-<div class="col-lg-6">
-
-<img src="/img/BANNER.pNg" class="img-fluid rounded-4 shadow-lg" alt="BANNER">
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-<!-- PRODUTO DESTAQUE -->
-<section class="py-5 bg-light">
-    <div class="container">
-
-        <div class="card shadow-sm border-0 rounded-4 p-4">
-            <div class="row align-items-center">
-
-                <!-- IMAGEM -->
-                <div class="col-md-5">
-                    <img src="/img/A110.png"
-                         class="img-fluid rounded"
-                         alt="Granitina">
+                    <a href="#colecoes" class="btn btn-outline-claro btn-lg">
+                        Conhecer estilos
+                    </a>
                 </div>
 
-                <!-- INFO -->
-                <div class="col-md-7">
+            </div>
+        </div>
 
-                    <span class="badge bg-warning text-dark mb-2">
-                        Mais vendido
-                    </span>
+    </div>
+</header>
 
-                    <h2 class="fw-bold text-primary">
-                        Andino pelo baixo - 1,50x2,00
-                    </h2>
+<!-- APRESENTAÇÃO -->
+<section class="secao-intro" id="sobre">
+    <div class="container">
 
-                    <p class="text-muted">
-                        Com ponteiras protetoras, facil de limpar.
-                    </p>
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
 
-                    <h3 class="text-success fw-bold">
-                        R$ 250,00
-                    </h3>
+                <span class="subtitulo-secao">
+                    Elegância, conforto e identidade
+                </span>
 
-                    <div class="mb-3">
-                        <span class="badge bg-light text-dark me-2">Estoque: 100 und</span>
-                        <span class="badge bg-light text-dark me-2">Atendimento rápido</span>
-                        <span class="badge bg-light text-dark">Venda direta</span>
+                <h2>
+                    Mais do que decoração, o tapete define o ambiente.
+                </h2>
+
+                <p>
+                    Selecionamos peças para diferentes estilos de vida,
+                    desde opções versáteis para o dia a dia até tapetes
+                    de maior presença para projetos sofisticados.
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- COLEÇÕES -->
+<section class="secao-colecoes" id="colecoes">
+    <div class="container">
+
+        <div class="cabecalho-secao">
+            <div>
+                <span class="subtitulo-secao">
+                    Encontre seu estilo
+                </span>
+
+                <h2>
+                    Coleções para cada ambiente
+                </h2>
+            </div>
+
+            <a href="/catalogo" class="link-elegante">
+                Ver todos os tapetes
+                <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+                <a href="/catalogo" class="colecao-card">
+
+                    <img src="/img/A110.png"
+                         alt="Tapetes para sala">
+
+                    <div class="colecao-overlay"></div>
+
+                    <div class="colecao-conteudo">
+                        <span>Ambientes principais</span>
+                        <h3>Sala de estar</h3>
+                        <p>
+                            Peças que organizam, aquecem e valorizam o espaço.
+                        </p>
                     </div>
 
-                    <a href="https://wa.me/5511954307383"
-                       class="btn btn-success btn-lg">
-                        Comprar no WhatsApp
+                </a>
+            </div>
+
+            <div class="col-lg-4">
+                <a href="/catalogo" class="colecao-card">
+
+                    <img src="/img/A98.jpg"
+                         alt="Tapetes contemporâneos">
+
+                    <div class="colecao-overlay"></div>
+
+                    <div class="colecao-conteudo">
+                        <span>Linhas selecionadas</span>
+                        <h3>Contemporâneos</h3>
+                        <p>
+                            Desenhos atuais para composições sofisticadas.
+                        </p>
+                    </div>
+
+                </a>
+            </div>
+
+            <div class="col-lg-4">
+                <a href="/catalogo" class="colecao-card">
+
+                    <img src="/img/A104.jpeg"
+                         alt="Tapetes clássicos">
+
+                    <div class="colecao-overlay"></div>
+
+                    <div class="colecao-conteudo">
+                        <span>Presença e tradição</span>
+                        <h3>Clássicos</h3>
+                        <p>
+                            Texturas e padrões para ambientes de personalidade.
+                        </p>
+                    </div>
+
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- DESTAQUE EDITORIAL -->
+<section class="secao-editorial">
+    <div class="container">
+
+        <div class="row g-0 align-items-stretch editorial-card">
+
+            <div class="col-lg-7">
+                <img src="/img/BANNER.pNg"
+                     alt="Ambiente decorado com tapete"
+                     class="editorial-imagem">
+            </div>
+
+            <div class="col-lg-5">
+                <div class="editorial-conteudo">
+
+                    <span class="subtitulo-secao">
+                        Escolha com confiança
+                    </span>
+
+                    <h2>
+                        O tapete certo muda a leitura de toda a sala.
+                    </h2>
+
+                    <p>
+                        Medida, cor, textura e proporção influenciam diretamente
+                        no resultado do ambiente. Nossa proposta é tornar essa
+                        escolha mais simples e segura.
+                    </p>
+
+                    <a href="/catalogo" class="btn btn-dourado">
+                        Ver tapetes disponíveis
                     </a>
 
                 </div>
-
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- DETALHES DO PRODUTO -->
-<section class="py-5 mt-4">
-    <div class="container">
-
-        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
-
-            <h4 class="fw-bold mb-3 text-primary">
-                Detalhes do Produto
-            </h4>
-
-            <p class="text-secondary">
-                Ideal para o conforto do seu lar!
-            </p>
-
-            <div class="row mt-3">
-
-                <div class="col-md-4 mb-3">
-                    <div class="border rounded-3 p-3 h-100 bg-light">
-                        <h6 class="fw-bold mb-2">Uso</h6>
-                        <p class="text-secondary mb-0">
-                            Indicado para uso interno linhas pelo baixo andino.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <div class="border rounded-3 p-3 h-100 bg-light">
-                        <h6 class="fw-bold mb-2">Sofisticados</h6>
-                        <p class="text-secondary mb-0">
-                            Trazeno elegancia e conforto para seu lar linha prime!
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <div class="border rounded-3 p-3 h-100 bg-light">
-                        <h6 class="fw-bold mb-2">Bem estar</h6>
-                        <p class="text-secondary mb-0">
-                            Combinados com mantas de alta qualidade. Lar doce lar!
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- IMAGENS -->
-            <div class="row mt-2">
-
-                <div class="col-md-4 mb-3">
-                    <img src="/img/A104.jpeg"
-                         class="img-fluid rounded border">
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <img src="/img/A98.jpg"
-                         class="img-fluid rounded border">
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <img src="/img/MANTA01.jpg"
-                         class="img-fluid rounded border">
-                </div>
-
             </div>
 
         </div>
 
     </div>
 </section>
-
-<!-- FICHA TÉCNICA -->
-<section class="pb-5">
-    <div class="container">
-
-        <button class="btn btn-outline-secondary mb-3"
-                data-bs-toggle="collapse"
-                data-bs-target="#ficha">
-            Ver ficha técnica
-        </button>
-
-        <div id="ficha" class="collapse">
-
-            <div class="card border-0 shadow-sm rounded-4 p-4">
-
-                <h5 class="fw-bold mb-3 text-primary">
-                    Ficha Técnica
-                </h5>
-
-                <p class="text-secondary mb-0">
-                   
-                    
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-</section>
-
-
-
-
-
-
-
-<script>
-function trocarImagem(elemento) {
-    document.getElementById("imagemPrincipal").src = elemento.src;
-
-    document.querySelectorAll(".miniatura").forEach(img => {
-        img.classList.remove("ativa");
-    });
-
-    elemento.classList.add("ativa");
-}
-</script>
 
 <!-- BENEFÍCIOS -->
-<section class="py-5 beneficios-section">
+<section class="secao-beneficios">
     <div class="container">
 
-        <div class="row text-center">
+        <div class="row g-4">
 
             <div class="col-md-4">
-                <h4 class="fw-bold beneficio-titulo">Qualidade</h4>
-                <p class="text-secondary">
-                    Direto da fabrica, garantia total de qualidade.
-                </p>
+                <div class="beneficio-item">
+                    <i class="bi bi-patch-check"></i>
+
+                    <div>
+                        <h3>Seleção de qualidade</h3>
+                        <p>
+                            Produtos escolhidos com atenção ao acabamento,
+                            conforto e durabilidade.
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-4">
-                <h4 class="fw-bold beneficio-titulo">Entrega Rápida</h4>
-                <p class="text-secondary">
-                    Atendimento rápido e envio ágil.
-                </p>
+                <div class="beneficio-item">
+                    <i class="bi bi-truck"></i>
+
+                    <div>
+                        <h3>Envio com cuidado</h3>
+                        <p>
+                            Atendimento direto e acompanhamento em todas
+                            as etapas do pedido.
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-4">
-                <h4 class="fw-bold beneficio-titulo">Atendimento Direto</h4>
-                <p class="text-secondary">
-                    Fale conosco facilmente pelo WhatsApp.
-                </p>
+                <div class="beneficio-item">
+                    <i class="bi bi-chat-dots"></i>
+
+                    <div>
+                        <h3>Atendimento próximo</h3>
+                        <p>
+                            Tire dúvidas sobre medidas, modelos e combinações
+                            antes de escolher.
+                        </p>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -315,80 +308,94 @@ function trocarImagem(elemento) {
 </section>
 
 <!-- CTA -->
-<section class="py-5 cta-section">
+<section class="secao-cta">
     <div class="container text-center">
 
-        <span class="selo-topo">Atendimento rápido pelo WhatsApp</span>
+        <span class="subtitulo-secao">
+            Atendimento personalizado
+        </span>
 
-        <h2 class="fw-bold mb-3 section-title">
-            Pronto para fazer seu pedido?
+        <h2>
+            Encontre o tapete certo para o seu ambiente.
         </h2>
 
-        <p class="text-secondary mb-4">
-            Clique abaixo e finalize seu pedido agora mesmo.
+        <p>
+            Fale diretamente conosco e receba ajuda para escolher
+            modelo, medida e estilo.
         </p>
 
-        <a href="https://wa.me/5511954307383" class="btn btn-whats btn-lg">
-            Falar com um consultor
+        <a href="https://wa.me/5511954307383"
+           target="_blank"
+           class="btn btn-whatsapp btn-lg">
+
+            <i class="bi bi-whatsapp"></i>
+            Falar pelo WhatsApp
         </a>
 
     </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="text-light pt-5 pb-3 mt-5">
+<footer>
     <div class="container">
 
-        <div class="row text-center">
+        <div class="row g-4">
 
-            <div class="col-md-4 mb-4">
-                <h5 class="fw-bold mb-4">GRANITINA</h5>
+            <div class="col-lg-5">
+                <a href="/" class="footer-logo">
+                    ELEGANCE
+                </a>
 
-                <p class="text-light small mb-0">
+                <p class="footer-descricao">
+                    Tapetes selecionados para ambientes que valorizam
+                    conforto, beleza e personalidade.
+                </p>
+            </div>
+
+            <div class="col-lg-3">
+                <h3>Navegação</h3>
+
+                <ul>
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/catalogo">Tapetes</a></li>
+                    <li><a href="/carrinho">Carrinho</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4">
+                <h3>Contato</h3>
+
+                <p>
                     Atendimento em horário comercial
                 </p>
-            </div>
 
-            <div class="col-md-4 mb-4">
-                <h6 class="fw-bold mb-4">Contato</h6>
+                <a href="https://wa.me/5511954307383"
+                   target="_blank"
+                   class="footer-contato">
 
-                <p class="mb-0">
-                    WhatsApp:
-                    <a href="https://wa.me/5511954307383"
-                       target="_blank"
-                       class="text-success text-decoration-none">
-                        (11) 95430-7383
-                    </a>
-                </p>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <h6 class="fw-bold mb-4">Navegação</h6>
-
-                <ul class="list-unstyled mb-0">
-                    <li class="mb-2"><a href="/" class="text-light text-decoration-none">Home</a></li>
-                    <li class="mb-2"><a href="/catalogo" class="text-light text-decoration-none">Catálogo</a></li>
-                    <li><a href="/carrinho" class="text-light text-decoration-none">Carrinho</a></li>
-                </ul>
+                    <i class="bi bi-whatsapp"></i>
+                    (11) 95430-7383
+                </a>
             </div>
 
         </div>
 
-        <div class="text-center border-top pt-3 mt-3">
-            <small class="text-muted">
-                © 2026 GRANITINA - Todos os direitos reservados
-            </small>
+        <div class="footer-final">
+            <span>
+                © 2026 ELEGANCE — Todos os direitos reservados
+            </span>
         </div>
 
     </div>
 </footer>
 
-<!-- BOTÃO WHATS -->
+<!-- WHATSAPP FLUTUANTE -->
 <a href="https://wa.me/5511954307383"
    target="_blank"
-   class="btn btn-success rounded-circle shadow"
-   style="position:fixed; bottom:20px; right:20px; width:60px; height:60px; display:flex; align-items:center; justify-content:center; font-size:22px; z-index:999;">
-   <i class="bi bi-whatsapp"></i>
+   class="whatsapp-flutuante"
+   aria-label="Falar pelo WhatsApp">
+
+    <i class="bi bi-whatsapp"></i>
 </a>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
