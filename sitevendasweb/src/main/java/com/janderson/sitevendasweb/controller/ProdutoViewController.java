@@ -37,7 +37,10 @@ public class ProdutoViewController {
     @GetMapping("/admin/produtos")
     public String listarProdutos(Model model) {
 
-        model.addAttribute("produtos", produtoService.listarProdutos());
+        model.addAttribute(
+                "produtos",
+                produtoService.listarProdutos()
+        );
 
         return "admin/produtos";
     }
@@ -46,7 +49,10 @@ public class ProdutoViewController {
     @GetMapping("/admin/produtos/novo")
     public String novoProduto(Model model) {
 
-        model.addAttribute("produto", new Produto());
+        model.addAttribute(
+                "produto",
+                new Produto()
+        );
 
         return "admin/produto-form";
     }
@@ -72,32 +78,40 @@ public class ProdutoViewController {
                 value = "removerImagens",
                 required = false
             )
-            List<String> removerImagens
+            List<String> removerImagens,
+
+            @RequestParam(
+                value = "removerImagemPrincipal",
+                required = false,
+                defaultValue = "false"
+            )
+            boolean removerImagemPrincipal
 
     ) throws IOException {
+
         /*
-         * IMPORTANTE:
-         * src/main/resources/static/img
-         *
-         * Como estamos rodando localmente pelo Eclipse,
-         * vamos salvar as imagens diretamente nessa pasta.
+         * Pasta onde as imagens serão salvas.
          */
-    	Path pastaImagens = Paths.get("uploads");
+        Path pastaImagens =
+                Paths.get("uploads");
 
-        Files.createDirectories(pastaImagens);
+        Files.createDirectories(
+                pastaImagens
+        );
 
 
         /*
-         * Se estamos EDITANDO um produto,
-         * buscamos o produto antigo para preservar
-         * imagem principal e imagens adicionais.
+         * Se estamos editando um produto,
+         * buscamos o produto já existente.
          */
         Produto produtoExistente = null;
 
         if (produto.getId() != null) {
 
             produtoExistente =
-                    produtoService.buscarProdutoPorId(produto.getId());
+                    produtoService.buscarProdutoPorId(
+                            produto.getId()
+                    );
         }
 
 
@@ -111,15 +125,21 @@ public class ProdutoViewController {
                 && !imagemPrincipalArquivo.isEmpty()) {
 
             String nomeArquivo =
-                    gerarNomeArquivo(imagemPrincipalArquivo);
+                    gerarNomeArquivo(
+                            imagemPrincipalArquivo
+                    );
 
             Path destino =
-                    pastaImagens.resolve(nomeArquivo);
+                    pastaImagens.resolve(
+                            nomeArquivo
+                    );
 
             Files.copy(
-                    imagemPrincipalArquivo.getInputStream(),
+                    imagemPrincipalArquivo
+                            .getInputStream(),
                     destino,
-                    StandardCopyOption.REPLACE_EXISTING
+                    StandardCopyOption
+                            .REPLACE_EXISTING
             );
 
             produto.setImagemUrl(
@@ -128,13 +148,34 @@ public class ProdutoViewController {
 
         } else if (produtoExistente != null) {
 
-            /*
-             * Se o usuário não escolheu uma nova foto,
-             * mantém a foto principal antiga.
-             */
-            produto.setImagemUrl(
-                    produtoExistente.getImagemUrl()
-            );
+            if (removerImagemPrincipal) {
+
+                String imagemAntiga =
+                        produtoExistente.getImagemUrl();
+
+                if (imagemAntiga != null
+                        && imagemAntiga.startsWith("/uploads/")) {
+
+                    String nomeArquivo =
+                            imagemAntiga.replace(
+                                    "/uploads/",
+                                    ""
+                            );
+
+                    Path arquivo =
+                            pastaImagens.resolve(nomeArquivo);
+
+                    Files.deleteIfExists(arquivo);
+                }
+
+                produto.setImagemUrl(null);
+
+            } else {
+
+                produto.setImagemUrl(
+                        produtoExistente.getImagemUrl()
+                );
+            }
         }
 
 
@@ -144,49 +185,70 @@ public class ProdutoViewController {
          * ============================
          */
 
-        List<String> imagens = new ArrayList<>();
+        List<String> imagens =
+                new ArrayList<>();
 
 
         /*
-         * Mantém imagens adicionais já existentes
-         * quando estamos editando.
+         * Mantém as imagens adicionais
+         * já existentes.
          */
         if (produtoExistente != null
-                && produtoExistente.getImagens() != null) {
+                && produtoExistente
+                        .getImagens() != null) {
 
             imagens.addAll(
-                    produtoExistente.getImagens()
+                    produtoExistente
+                            .getImagens()
             );
         }
-        
-     // REMOVE IMAGENS MARCADAS NO ADMIN
-        
+
+
+        /*
+         * REMOVE IMAGENS MARCADAS
+         * NO ADMIN
+         */
         if (removerImagens != null) {
 
-            for (String imagemRemover : removerImagens) {
+            for (String imagemRemover
+                    : removerImagens) {
 
-                if (imagemRemover == null || imagemRemover.isBlank()) {
+                if (imagemRemover == null
+                        || imagemRemover.isBlank()) {
+
                     continue;
                 }
 
-                imagens.remove(imagemRemover);
+                imagens.remove(
+                        imagemRemover
+                );
 
-                if (imagemRemover.startsWith("/uploads/")) {
+                if (imagemRemover
+                        .startsWith("/uploads/")) {
 
                     String nomeArquivo =
-                            imagemRemover.replace("/uploads/", "");
+                            imagemRemover.replace(
+                                    "/uploads/",
+                                    ""
+                            );
 
                     Path arquivo =
-                            Paths.get("uploads").resolve(nomeArquivo);
+                            Paths.get("uploads")
+                                    .resolve(
+                                            nomeArquivo
+                                    );
 
-                    Files.deleteIfExists(arquivo);
+                    Files.deleteIfExists(
+                            arquivo
+                    );
                 }
             }
         }
 
 
         /*
-         * Adiciona as novas imagens escolhidas.
+         * Adiciona novas imagens
+         * escolhidas.
          */
         if (imagensAdicionaisArquivos != null) {
 
@@ -200,15 +262,20 @@ public class ProdutoViewController {
                 }
 
                 String nomeArquivo =
-                        gerarNomeArquivo(arquivo);
+                        gerarNomeArquivo(
+                                arquivo
+                        );
 
                 Path destino =
-                        pastaImagens.resolve(nomeArquivo);
+                        pastaImagens.resolve(
+                                nomeArquivo
+                        );
 
                 Files.copy(
                         arquivo.getInputStream(),
                         destino,
-                        StandardCopyOption.REPLACE_EXISTING
+                        StandardCopyOption
+                                .REPLACE_EXISTING
                 );
 
                 imagens.add(
@@ -217,29 +284,26 @@ public class ProdutoViewController {
             }
         }
 
-        produto.setImagens(imagens);
+
+        produto.setImagens(
+                imagens
+        );
 
 
         /*
-         * Finalmente salva o produto no banco.
+         * Salva o produto no banco.
          */
-        produtoService.salvarProduto(produto);
+        produtoService.salvarProduto(
+                produto
+        );
 
         return "redirect:/admin/produtos";
     }
 
 
     /*
-     * Gera um nome único para evitar sobrescrever
-     * fotos com o mesmo nome.
-     *
-     * Exemplo:
-     *
-     * arquivo original:
-     * tapete.jpg
-     *
-     * salvo como:
-     * 8d3f2a...-tapete.jpg
+     * Gera um nome único para evitar
+     * sobrescrever arquivos.
      */
     private String gerarNomeArquivo(
             MultipartFile arquivo) {
@@ -250,17 +314,20 @@ public class ProdutoViewController {
         if (nomeOriginal == null
                 || nomeOriginal.isBlank()) {
 
-            nomeOriginal = "imagem.jpg";
+            nomeOriginal =
+                    "imagem.jpg";
         }
 
+
         /*
-         * Remove caracteres problemáticos do nome.
+         * Remove caracteres problemáticos.
          */
         nomeOriginal =
                 nomeOriginal.replaceAll(
                         "[^a-zA-Z0-9._-]",
                         "_"
                 );
+
 
         return UUID.randomUUID()
                 + "-"
@@ -274,9 +341,14 @@ public class ProdutoViewController {
             Model model) {
 
         Produto produto =
-                produtoService.buscarProdutoPorId(id);
+                produtoService.buscarProdutoPorId(
+                        id
+                );
 
-        model.addAttribute("produto", produto);
+        model.addAttribute(
+                "produto",
+                produto
+        );
 
         return "admin/produto-form";
     }
@@ -290,33 +362,44 @@ public class ProdutoViewController {
 
         try {
 
-            produtoService.deletarProduto(id);
-
-            redirectAttributes.addFlashAttribute(
-                    "sucesso",
-                    "Produto excluído com sucesso!"
+            produtoService.deletarProduto(
+                    id
             );
+
+            redirectAttributes
+                    .addFlashAttribute(
+                            "sucesso",
+                            "Produto excluído com sucesso!"
+                    );
 
             return "redirect:/admin/produtos";
 
 
         } catch (RuntimeException e) {
 
-            System.out.println("Produto ID: " + id);
+            System.out.println(
+                    "Produto ID: " + id
+            );
 
             System.out.println(
                     "ERRO AO EXCLUIR PRODUTO:"
             );
 
-            System.out.println(e.getMessage());
+            System.out.println(
+                    e.getMessage()
+            );
+
 
             List<ItemPedido> itens =
-                    itemPedidoRepository.findByProduto_Id(id);
+                    itemPedidoRepository
+                            .findByProduto_Id(id);
+
 
             System.out.println(
                     "TOTAL DE ITENS ENCONTRADOS: "
                     + itens.size()
             );
+
 
             for (ItemPedido item : itens) {
 
@@ -329,7 +412,8 @@ public class ProdutoViewController {
 
                     System.out.println(
                             "PEDIDO ID: "
-                            + item.getPedido().getId()
+                            + item.getPedido()
+                                    .getId()
                     );
 
                 } else {
@@ -339,6 +423,7 @@ public class ProdutoViewController {
                     );
                 }
             }
+
 
             model.addAttribute(
                     "pedidos",
@@ -355,13 +440,17 @@ public class ProdutoViewController {
             @PathVariable Long id) {
 
         Produto produto =
-                produtoService.buscarProdutoPorId(id);
+                produtoService.buscarProdutoPorId(
+                        id
+                );
 
         if (produto != null) {
 
             produto.setAtivo(true);
 
-            produtoService.salvarProduto(produto);
+            produtoService.salvarProduto(
+                    produto
+            );
         }
 
         return "redirect:/admin/produtos";
@@ -373,13 +462,17 @@ public class ProdutoViewController {
             @PathVariable Long id) {
 
         Produto produto =
-                produtoService.buscarProdutoPorId(id);
+                produtoService.buscarProdutoPorId(
+                        id
+                );
 
         if (produto != null) {
 
             produto.setAtivo(false);
 
-            produtoService.salvarProduto(produto);
+            produtoService.salvarProduto(
+                    produto
+            );
         }
 
         return "redirect:/admin/produtos";
@@ -392,7 +485,9 @@ public class ProdutoViewController {
             Model model) {
 
         Produto produto =
-                produtoService.buscarProdutoPorId(id);
+                produtoService.buscarProdutoPorId(
+                        id
+                );
 
         model.addAttribute(
                 "produto",
@@ -401,5 +496,4 @@ public class ProdutoViewController {
 
         return "produto-detalhe";
     }
-
 }

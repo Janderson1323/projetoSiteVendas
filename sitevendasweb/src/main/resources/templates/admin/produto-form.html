@@ -137,6 +137,19 @@
                             <label class="form-label">
                                 Imagem principal atual
                             </label>
+							
+							<div class="mt-3">
+							    <input type="hidden"
+							           id="removerImagemPrincipal"
+							           name="removerImagemPrincipal"
+							           value="false">
+
+							    <button type="button"
+							            id="btnRemoverImagemPrincipal"
+							            class="btn btn-outline-danger w-100">
+							        Remover imagem principal
+							    </button>
+							</div>
 
                             <div class="card">
 
@@ -350,13 +363,10 @@
 
 
 <script>
-
     const botoesRemover =
         document.querySelectorAll(".btn-remover-imagem");
 
-
     botoesRemover.forEach(botao => {
-
         botao.addEventListener("click", () => {
 
             const card =
@@ -368,16 +378,9 @@
             const imagem =
                 input.dataset.imagem;
 
-
-            /*
-             * Primeira vez:
-             * marca para remover.
-             */
-
             if (input.value === "") {
 
                 input.value = imagem;
-
                 card.style.opacity = "0.45";
 
                 botao.textContent =
@@ -391,17 +394,9 @@
                     "btn-outline-secondary"
                 );
 
-            }
-
-            /*
-             * Segundo clique:
-             * cancela remoção.
-             */
-
-            else {
+            } else {
 
                 input.value = "";
-
                 card.style.opacity = "1";
 
                 botao.textContent =
@@ -414,16 +409,63 @@
                 botao.classList.add(
                     "btn-outline-danger"
                 );
-
             }
-
         });
-
     });
 
+
+    const botaoPrincipal =
+        document.getElementById(
+            "btnRemoverImagemPrincipal"
+        );
+
+    const inputPrincipal =
+        document.getElementById(
+            "removerImagemPrincipal"
+        );
+
+    if (botaoPrincipal && inputPrincipal) {
+
+        botaoPrincipal.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    inputPrincipal.value === "false"
+                ) {
+
+                    inputPrincipal.value = "true";
+
+                    botaoPrincipal.textContent =
+                        "Cancelar remoção da imagem principal";
+
+                    botaoPrincipal.classList.remove(
+                        "btn-outline-danger"
+                    );
+
+                    botaoPrincipal.classList.add(
+                        "btn-outline-secondary"
+                    );
+
+                } else {
+
+                    inputPrincipal.value = "false";
+
+                    botaoPrincipal.textContent =
+                        "Remover imagem principal";
+
+                    botaoPrincipal.classList.remove(
+                        "btn-outline-secondary"
+                    );
+
+                    botaoPrincipal.classList.add(
+                        "btn-outline-danger"
+                    );
+                }
+            }
+        );
+    }
 </script>
 
-
 </body>
-
 </html>
