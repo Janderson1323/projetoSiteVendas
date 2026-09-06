@@ -77,13 +77,7 @@ public class ProdutoViewController {
          * Como estamos rodando localmente pelo Eclipse,
          * vamos salvar as imagens diretamente nessa pasta.
          */
-        Path pastaImagens = Paths.get(
-                "src",
-                "main",
-                "resources",
-                "static",
-                "img"
-        );
+    	Path pastaImagens = Paths.get("uploads");
 
         Files.createDirectories(pastaImagens);
 
@@ -124,7 +118,7 @@ public class ProdutoViewController {
             );
 
             produto.setImagemUrl(
-                    "/img/" + nomeArquivo
+                    "/uploads/" + nomeArquivo
             );
 
         } else if (produtoExistente != null) {
@@ -188,7 +182,7 @@ public class ProdutoViewController {
                 );
 
                 imagens.add(
-                        "/img/" + nomeArquivo
+                        "/uploads/" + nomeArquivo
                 );
             }
         }
