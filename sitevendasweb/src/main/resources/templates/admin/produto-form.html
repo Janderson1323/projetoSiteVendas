@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -14,6 +15,7 @@
           rel="stylesheet">
 
 </head>
+
 
 <body class="bg-light">
 
@@ -36,17 +38,20 @@
 
                 <div class="card-body">
 
-					<form th:action="@{/admin/produtos/salvar}"
-					      th:object="${produto}"
-					      method="post"
-					      enctype="multipart/form-data">
+                    <form th:action="@{/admin/produtos/salvar}"
+                          th:object="${produto}"
+                          method="post"
+                          enctype="multipart/form-data">
+
 
                         <!-- ID -->
+
                         <input type="hidden"
                                th:field="*{id}">
 
 
                         <!-- NOME -->
+
                         <div class="mb-3">
 
                             <label class="form-label">
@@ -62,6 +67,7 @@
 
 
                         <!-- DESCRIÇÃO -->
+
                         <div class="mb-3">
 
                             <label class="form-label">
@@ -77,6 +83,7 @@
 
 
                         <!-- PREÇO -->
+
                         <div class="mb-3">
 
                             <label class="form-label">
@@ -94,6 +101,7 @@
 
 
                         <!-- ESTOQUE -->
+
                         <div class="mb-3">
 
                             <label class="form-label">
@@ -112,96 +120,193 @@
                         <hr class="my-4">
 
 
-                        <!-- IMAGEM PRINCIPAL -->
-						<!-- IMAGENS DO PRODUTO -->
+                        <!-- =====================================================
+                             IMAGENS
+                        ====================================================== -->
 
-						<h5 class="mb-3">
-						    Imagens do produto
-						</h5>
+                        <h5 class="mb-4">
+                            Imagens do produto
+                        </h5>
 
-						<!-- IMAGEM PRINCIPAL ATUAL -->
-						<div class="mb-3">
 
-						    <label class="form-label">
-						        Imagem principal atual
-						    </label>
+                        <!-- IMAGEM PRINCIPAL ATUAL -->
 
-						    <input type="text"
-						           class="form-control"
-						           th:field="*{imagemUrl}"
-						           readonly>
+                        <div class="mb-4"
+                             th:if="${produto.imagemUrl != null and !produto.imagemUrl.isEmpty()}">
 
-						</div>
+                            <label class="form-label">
+                                Imagem principal atual
+                            </label>
 
-						<!-- UPLOAD NOVA IMAGEM PRINCIPAL -->
-						<div class="mb-3">
+                            <div class="card">
 
-						    <label class="form-label">
-						        Escolher nova imagem principal
-						    </label>
+                                <div class="card-body">
 
-						    <input type="file"
-						           name="imagemPrincipalArquivo"
-						           class="form-control"
-						           accept="image/*">
+                                    <div class="d-flex gap-3 align-items-center">
 
-						    <div class="form-text">
-						        Se você não escolher uma nova imagem, a atual será mantida.
-						    </div>
+                                        <img th:src="${produto.imagemUrl}"
+                                             th:alt="${produto.nome}"
+                                             style="
+                                                width: 110px;
+                                                height: 110px;
+                                                object-fit: cover;
+                                                border: 1px solid #ddd;
+                                             ">
 
-						</div>
+                                        <div class="flex-grow-1">
 
-						<!-- IMAGENS ADICIONAIS ATUAIS -->
-						<div class="mb-3">
+                                            <input type="text"
+                                                   class="form-control mb-2"
+                                                   th:field="*{imagemUrl}"
+                                                   readonly>
 
-						    <label class="form-label">
-						        Imagens adicionais atuais
-						    </label>
+                                            <small class="text-muted">
+                                                Foto usada no catálogo e como primeira imagem da galeria.
+                                            </small>
 
-						    <div th:if="${produto.imagens != null and !produto.imagens.isEmpty()}">
+                                        </div>
 
-						        <div th:each="imagem : ${produto.imagens}"
-						             class="mb-2">
+                                    </div>
 
-						            <input type="text"
-						                   name="imagens"
-						                   class="form-control"
-						                   th:value="${imagem}"
-						                   readonly>
+                                </div>
 
-						        </div>
+                            </div>
 
-						    </div>
+                        </div>
 
-						    <div th:if="${produto.imagens == null or produto.imagens.isEmpty()}"
-						         class="text-muted">
 
-						        Nenhuma imagem adicional cadastrada.
+                        <!-- QUANDO NÃO EXISTE IMAGEM PRINCIPAL -->
 
-						    </div>
+                        <div class="mb-3"
+                             th:if="${produto.imagemUrl == null or produto.imagemUrl.isEmpty()}">
 
-						</div>
+                            <input type="hidden"
+                                   th:field="*{imagemUrl}">
 
-						<!-- NOVAS IMAGENS ADICIONAIS -->
-						<div class="mb-3">
+                            <p class="text-muted">
+                                Nenhuma imagem principal cadastrada.
+                            </p>
 
-						    <label class="form-label">
-						        Adicionar novas imagens
-						    </label>
+                        </div>
 
-						    <input type="file"
-						           name="imagensAdicionaisArquivos"
-						           class="form-control"
-						           accept="image/*"
-						           multiple>
 
-						    <div class="form-text">
-						        Você pode selecionar várias imagens ao mesmo tempo.
-						    </div>
+                        <!-- NOVA IMAGEM PRINCIPAL -->
 
-						</div>
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Escolher nova imagem principal
+                            </label>
+
+                            <input type="file"
+                                   name="imagemPrincipalArquivo"
+                                   class="form-control"
+                                   accept="image/*">
+
+                            <div class="form-text">
+                                Se você não escolher outra foto, a imagem principal atual será mantida.
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4">
+
+
+                        <!-- IMAGENS ADICIONAIS ATUAIS -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label mb-3">
+                                Imagens adicionais atuais
+                            </label>
+
+
+                            <div th:if="${produto.imagens != null and !produto.imagens.isEmpty()}">
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-6"
+                                         th:each="imagem : ${produto.imagens}">
+
+                                        <div class="card h-100 imagem-atual">
+
+                                            <img th:src="${imagem}"
+                                                 th:alt="${produto.nome}"
+                                                 class="card-img-top"
+                                                 style="
+                                                    height: 180px;
+                                                    object-fit: cover;
+                                                 ">
+
+                                            <div class="card-body">
+
+                                                <input type="text"
+                                                       class="form-control form-control-sm mb-3"
+                                                       th:value="${imagem}"
+                                                       readonly>
+
+
+                                                <!-- Valor enviado apenas se clicar em remover -->
+
+                                                <input type="hidden"
+                                                       class="imagem-remover-input"
+                                                       name="removerImagens"
+                                                       value=""
+                                                       th:attr="data-imagem=${imagem}">
+
+
+                                                <button type="button"
+                                                        class="btn btn-outline-danger w-100 btn-remover-imagem">
+
+                                                    Remover imagem
+
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div th:if="${produto.imagens == null or produto.imagens.isEmpty()}"
+                                 class="text-muted">
+
+                                Nenhuma imagem adicional cadastrada.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOVAS IMAGENS ADICIONAIS -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Adicionar novas imagens
+                            </label>
+
+                            <input type="file"
+                                   name="imagensAdicionaisArquivos"
+                                   class="form-control"
+                                   accept="image/*"
+                                   multiple>
+
+                            <div class="form-text">
+                                Você pode selecionar várias imagens ao mesmo tempo.
+                            </div>
+
+                        </div>
+
 
                         <!-- ATIVO -->
+
                         <div class="form-check mb-4 mt-4">
 
                             <input type="checkbox"
@@ -216,6 +321,7 @@
 
 
                         <!-- BOTÕES -->
+
                         <div class="d-flex justify-content-between">
 
                             <a href="/admin/produtos"
@@ -242,5 +348,82 @@
 
 </div>
 
+
+<script>
+
+    const botoesRemover =
+        document.querySelectorAll(".btn-remover-imagem");
+
+
+    botoesRemover.forEach(botao => {
+
+        botao.addEventListener("click", () => {
+
+            const card =
+                botao.closest(".imagem-atual");
+
+            const input =
+                card.querySelector(".imagem-remover-input");
+
+            const imagem =
+                input.dataset.imagem;
+
+
+            /*
+             * Primeira vez:
+             * marca para remover.
+             */
+
+            if (input.value === "") {
+
+                input.value = imagem;
+
+                card.style.opacity = "0.45";
+
+                botao.textContent =
+                    "Cancelar remoção";
+
+                botao.classList.remove(
+                    "btn-outline-danger"
+                );
+
+                botao.classList.add(
+                    "btn-outline-secondary"
+                );
+
+            }
+
+            /*
+             * Segundo clique:
+             * cancela remoção.
+             */
+
+            else {
+
+                input.value = "";
+
+                card.style.opacity = "1";
+
+                botao.textContent =
+                    "Remover imagem";
+
+                botao.classList.remove(
+                    "btn-outline-secondary"
+                );
+
+                botao.classList.add(
+                    "btn-outline-danger"
+                );
+
+            }
+
+        });
+
+    });
+
+</script>
+
+
 </body>
+
 </html>

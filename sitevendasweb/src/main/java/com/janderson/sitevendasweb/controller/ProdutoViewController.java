@@ -66,10 +66,15 @@ public class ProdutoViewController {
                 value = "imagensAdicionaisArquivos",
                 required = false
             )
-            MultipartFile[] imagensAdicionaisArquivos
+            MultipartFile[] imagensAdicionaisArquivos,
+
+            @RequestParam(
+                value = "removerImagens",
+                required = false
+            )
+            List<String> removerImagens
 
     ) throws IOException {
-
         /*
          * IMPORTANTE:
          * src/main/resources/static/img
@@ -152,6 +157,31 @@ public class ProdutoViewController {
             imagens.addAll(
                     produtoExistente.getImagens()
             );
+        }
+        
+     // REMOVE IMAGENS MARCADAS NO ADMIN
+        
+        if (removerImagens != null) {
+
+            for (String imagemRemover : removerImagens) {
+
+                if (imagemRemover == null || imagemRemover.isBlank()) {
+                    continue;
+                }
+
+                imagens.remove(imagemRemover);
+
+                if (imagemRemover.startsWith("/uploads/")) {
+
+                    String nomeArquivo =
+                            imagemRemover.replace("/uploads/", "");
+
+                    Path arquivo =
+                            Paths.get("uploads").resolve(nomeArquivo);
+
+                    Files.deleteIfExists(arquivo);
+                }
+            }
         }
 
 
