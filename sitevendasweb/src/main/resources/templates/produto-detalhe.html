@@ -259,34 +259,33 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+    const miniaturas =
+        document.querySelectorAll(".miniatura");
 
-    const miniaturas = document.querySelectorAll(".miniatura");
-    const imagemPrincipal = document.getElementById("imagemPrincipal");
+    const imagemPrincipal =
+        document.getElementById("imagemPrincipal");
 
     miniaturas.forEach(miniatura => {
 
         miniatura.addEventListener("click", () => {
 
-            const novaImagem = miniatura.dataset.img;
+            const novaImagem =
+                miniatura.dataset.img;
 
-            imagemPrincipal.src = novaImagem;
+            imagemPrincipal.src =
+                novaImagem;
 
             miniaturas.forEach(item => {
                 item.classList.remove("ativa");
             });
 
             miniatura.classList.add("ativa");
-
         });
-
     });
-
 </script>
 
-</body>
-</html>
+
 </body>
 </html>
