@@ -196,9 +196,17 @@
                     <a th:href="@{/produto/{id}(id=${produto.id})}"
                        class="produto-vitrine-imagem">
 
-                        <img th:src="${produto.imagemUrl}"
-                             th:alt="${produto.nome}"
-                             loading="lazy">
+					   <img th:src="${
+					           produto.imagemUrl != null and !produto.imagemUrl.isEmpty()
+					           ? produto.imagemUrl
+					           : (
+					               produto.imagens != null and !produto.imagens.isEmpty()
+					               ? produto.imagens[0]
+					               : '/img/sem-imagem.png'
+					           )
+					        }"
+					        th:alt="${produto.nome}"
+							loading="lazy">
 
                         <div class="produto-vitrine-overlay">
 

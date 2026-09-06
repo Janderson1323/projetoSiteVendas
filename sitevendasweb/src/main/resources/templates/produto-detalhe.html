@@ -65,47 +65,54 @@
 			        <div class="produto-miniaturas">
 
 			            <!-- IMAGEM PRINCIPAL -->
-			            <button type="button"
-			                    class="miniatura ativa"
-			                    th:attr="data-img=${produto.imagemUrl}">
-
-			                <img th:src="${produto.imagemUrl}"
-			                     th:alt="${produto.nome}">
-
-			            </button>
-
-			            <!-- IMAGENS ADICIONAIS -->
-			            <button type="button"
-			                    class="miniatura"
-			                    th:each="imagem : ${produto.imagens}"
-			                    th:attr="data-img=${imagem}">
-
-			                <img th:src="${imagem}"
-			                     th:alt="${produto.nome}">
-
-			            </button>
-
-			        </div>
-
-
-			        <!-- IMAGEM GRANDE -->
-			        <div class="produto-detalhe-imagem">
-
-			            <img id="imagemPrincipal"
-			                 th:src="${produto.imagemUrl}"
-			                 th:alt="${produto.nome}">
-
-			            <span class="produto-selo"
-			                  th:if="${produto.estoque > 0}">
-			                Disponível
-			            </span>
-
-			            <span class="produto-selo produto-selo-esgotado"
-			                  th:if="${produto.estoque <= 0}">
-			                Indisponível
-			            </span>
+						<!-- IMAGEM PRINCIPAL -->
+						<button type="button"
+						        class="miniatura ativa"
+						        th:if="${produto.imagemUrl != null and !produto.imagemUrl.isEmpty()}"
+						        th:attr="data-img=${produto.imagemUrl}">
+						    <img th:src="${produto.imagemUrl}"
+						         th:alt="${produto.nome}">
+						</button>
+						
+						<!-- IMAGENS ADICIONAIS -->
+						<button type="button"
+						        class="miniatura"
+						        th:each="imagem, iterStat : ${produto.imagens}"
+						        th:classappend="${(produto.imagemUrl == null or produto.imagemUrl.isEmpty()) and iterStat.first} ? ' ativa' : ''"
+						        th:attr="data-img=${imagem}">
+						    <img th:src="${imagem}"
+						         th:alt="${produto.nome}">
+						</button>
 
 			        </div>
+
+
+					<!-- IMAGEM GRANDE -->
+					<div class="produto-detalhe-imagem">
+
+					    <img id="imagemPrincipal"
+					         th:src="${
+					             produto.imagemUrl != null and !produto.imagemUrl.isEmpty()
+					             ? produto.imagemUrl
+					             : (
+					                 produto.imagens != null and !produto.imagens.isEmpty()
+					                 ? produto.imagens[0]
+					                 : '/img/sem-imagem.png'
+					             )
+					         }"
+					         th:alt="${produto.nome}">
+
+					    <span class="produto-selo"
+					          th:if="${produto.estoque > 0}">
+					        Disponível
+					    </span>
+
+					    <span class="produto-selo produto-selo-esgotado"
+					          th:if="${produto.estoque <= 0}">
+					        Indisponível
+					    </span>
+
+					</div>
 
 			    </div>
 
