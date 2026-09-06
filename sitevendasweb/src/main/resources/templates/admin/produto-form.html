@@ -36,9 +36,10 @@
 
                 <div class="card-body">
 
-                    <form th:action="@{/admin/produtos/salvar}"
-                          th:object="${produto}"
-                          method="post">
+					<form th:action="@{/admin/produtos/salvar}"
+					      th:object="${produto}"
+					      method="post"
+					      enctype="multipart/form-data">
 
                         <!-- ID -->
                         <input type="hidden"
@@ -112,99 +113,93 @@
 
 
                         <!-- IMAGEM PRINCIPAL -->
-                        <h5 class="mb-3">
-                            Imagens do produto
-                        </h5>
+						<!-- IMAGENS DO PRODUTO -->
 
-                        <div class="mb-3">
+						<h5 class="mb-3">
+						    Imagens do produto
+						</h5>
 
-                            <label class="form-label">
-                                Imagem principal
-                            </label>
+						<!-- IMAGEM PRINCIPAL ATUAL -->
+						<div class="mb-3">
 
-                            <input type="text"
-                                   class="form-control"
-                                   th:field="*{imagemUrl}"
-                                   placeholder="/img/tapete-principal.jpg">
+						    <label class="form-label">
+						        Imagem principal atual
+						    </label>
 
-                            <div class="form-text">
-                                Essa imagem será usada no catálogo como foto principal.
-                            </div>
+						    <input type="text"
+						           class="form-control"
+						           th:field="*{imagemUrl}"
+						           readonly>
 
-                        </div>
+						</div>
 
+						<!-- UPLOAD NOVA IMAGEM PRINCIPAL -->
+						<div class="mb-3">
 
-                        <!-- IMAGEM ADICIONAL 1 -->
-                        <div class="mb-3">
+						    <label class="form-label">
+						        Escolher nova imagem principal
+						    </label>
 
-                            <label class="form-label">
-                                Imagem adicional 1
-                            </label>
+						    <input type="file"
+						           name="imagemPrincipalArquivo"
+						           class="form-control"
+						           accept="image/*">
 
-                            <input type="text"
-                                   class="form-control"
-                                   name="imagens"
-                                   th:value="${produto.imagens != null and produto.imagens.size() > 0
-                                       ? produto.imagens[0]
-                                       : ''}"
-                                   placeholder="/img/tapete-foto-2.jpg">
+						    <div class="form-text">
+						        Se você não escolher uma nova imagem, a atual será mantida.
+						    </div>
 
-                        </div>
+						</div>
 
+						<!-- IMAGENS ADICIONAIS ATUAIS -->
+						<div class="mb-3">
 
-                        <!-- IMAGEM ADICIONAL 2 -->
-                        <div class="mb-3">
+						    <label class="form-label">
+						        Imagens adicionais atuais
+						    </label>
 
-                            <label class="form-label">
-                                Imagem adicional 2
-                            </label>
+						    <div th:if="${produto.imagens != null and !produto.imagens.isEmpty()}">
 
-                            <input type="text"
-                                   class="form-control"
-                                   name="imagens"
-                                   th:value="${produto.imagens != null and produto.imagens.size() > 1
-                                       ? produto.imagens[1]
-                                       : ''}"
-                                   placeholder="/img/tapete-foto-3.jpg">
+						        <div th:each="imagem : ${produto.imagens}"
+						             class="mb-2">
 
-                        </div>
+						            <input type="text"
+						                   name="imagens"
+						                   class="form-control"
+						                   th:value="${imagem}"
+						                   readonly>
 
+						        </div>
 
-                        <!-- IMAGEM ADICIONAL 3 -->
-                        <div class="mb-3">
+						    </div>
 
-                            <label class="form-label">
-                                Imagem adicional 3
-                            </label>
+						    <div th:if="${produto.imagens == null or produto.imagens.isEmpty()}"
+						         class="text-muted">
 
-                            <input type="text"
-                                   class="form-control"
-                                   name="imagens"
-                                   th:value="${produto.imagens != null and produto.imagens.size() > 2
-                                       ? produto.imagens[2]
-                                       : ''}"
-                                   placeholder="/img/tapete-foto-4.jpg">
+						        Nenhuma imagem adicional cadastrada.
 
-                        </div>
+						    </div>
 
+						</div>
 
-                        <!-- IMAGEM ADICIONAL 4 -->
-                        <div class="mb-3">
+						<!-- NOVAS IMAGENS ADICIONAIS -->
+						<div class="mb-3">
 
-                            <label class="form-label">
-                                Imagem adicional 4
-                            </label>
+						    <label class="form-label">
+						        Adicionar novas imagens
+						    </label>
 
-                            <input type="text"
-                                   class="form-control"
-                                   name="imagens"
-                                   th:value="${produto.imagens != null and produto.imagens.size() > 3
-                                       ? produto.imagens[3]
-                                       : ''}"
-                                   placeholder="/img/tapete-foto-5.jpg">
+						    <input type="file"
+						           name="imagensAdicionaisArquivos"
+						           class="form-control"
+						           accept="image/*"
+						           multiple>
 
-                        </div>
+						    <div class="form-text">
+						        Você pode selecionar várias imagens ao mesmo tempo.
+						    </div>
 
+						</div>
 
                         <!-- ATIVO -->
                         <div class="form-check mb-4 mt-4">
