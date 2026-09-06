@@ -1505,9 +1505,13 @@ footer a:hover {
 	    line-height: 1.2;
 
 	    margin-bottom: 10px;
+
 		display: -webkit-box;
+
 		-webkit-line-clamp: 2;
+
 		-webkit-box-orient: vertical;
+
 		overflow: hidden;
 
 	}
@@ -1580,6 +1584,19 @@ footer a:hover {
 
 	}
 
+	.produto-preco-catalogo strong .valor {
+
+	    display: inline;
+
+	    color: inherit;
+
+	    font-size: inherit;
+
+	    margin: 0;
+
+	}
+
+
 	.produto-estoque {
 
 	    display: flex;
@@ -1606,9 +1623,9 @@ footer a:hover {
 
 	    grid-template-columns: 1fr auto;
 
-	    gap: 12px;
+	    gap: 10px;
 
-	    margin-top: 24px;
+	    margin-top: 16px;
 
 	}
 
@@ -1811,3 +1828,481 @@ footer a:hover {
 	    }
 
 	}
+
+		/* ===========================================================
+
+		   DETALHE DO PRODUTO
+
+		=========================================================== */
+
+		.produto-detalhe {
+
+		    padding: 90px 0 120px;
+
+		    background: var(--fundo-claro);
+
+		}
+
+		.produto-detalhe-imagem {
+
+		    position: relative;
+
+		    width: 100%;
+
+		    min-height: 500px;
+
+		    overflow: hidden;
+
+		    background: #e9e1d7;
+
+		    border: 1px solid rgba(75, 48, 32, 0.12);
+
+		}
+
+		.produto-detalhe-imagem img {
+
+		    width: 100%;
+
+		    height: 500px;
+
+		    object-fit: cover;
+
+		}
+
+		.produto-detalhe-conteudo {
+
+		    padding: 20px 0;
+
+		}
+
+		.produto-detalhe-conteudo h1 {
+
+		    margin-bottom: 24px;
+
+		    color: var(--marrom-escuro);
+
+		    font-family: Georgia, "Times New Roman", serif;
+
+		    font-size: clamp(2.4rem, 4vw, 3.8rem);
+
+		    font-weight: 500;
+
+		    line-height: 1.08;
+
+		}
+
+		.produto-detalhe-preco {
+
+		    padding: 16px 0;
+
+		    margin-bottom: 16px;
+
+		    border-top: 1px solid rgba(75, 48, 32, 0.12);
+
+		    border-bottom: 1px solid rgba(75, 48, 32, 0.12);
+
+		}
+
+		.produto-detalhe-preco > span {
+
+		    display: block;
+
+		    margin-bottom: 5px;
+
+		    color: var(--texto-claro);
+
+		    font-size: 0.88rem;
+
+		}
+
+		.produto-detalhe-preco strong {
+
+		    color: var(--marrom-escuro);
+
+		    font-size: 2rem;
+
+		}
+
+		.produto-detalhe-preco .valor {
+
+		    display: inline;
+
+		}
+
+		.produto-detalhe-descricao {
+
+		    margin-bottom: 16px;
+
+		    color: var(--texto-claro);
+
+		    font-size: 1.05rem;
+
+		    line-height: 1.5;
+
+		}
+
+		.produto-detalhe-estoque {
+
+		    display: flex;
+
+		    align-items: center;
+
+		    gap: 10px;
+
+		    margin-bottom: 18px;
+
+		    color: var(--texto);
+
+		}
+
+		.produto-detalhe-estoque i {
+
+		    color: var(--dourado);
+
+		    font-size: 1.2rem;
+
+		}
+
+		.produto-compra {
+
+		    margin-top: 10px;
+
+		}
+
+		.produto-compra label {
+
+		    display: block;
+
+		    margin-bottom: 8px;
+
+		    color: var(--marrom-escuro);
+
+		    font-weight: 700;
+
+		}
+
+		.produto-compra input {
+
+		    width: 110px;
+
+		    height: 52px;
+
+		    padding: 0 14px;
+
+		    margin-bottom: 14px;
+
+		    border: 1px solid rgba(75, 48, 32, 0.25);
+
+		    background: var(--branco);
+
+		    color: var(--texto);
+
+		}
+
+		.btn-adicionar-produto {
+
+		    width: 100%;
+
+		    min-height: 58px;
+
+		    display: flex;
+
+		    align-items: center;
+
+		    justify-content: center;
+
+		    gap: 10px;
+
+		    border: 0;
+
+		    background: var(--marrom-escuro);
+
+		    color: var(--branco);
+
+		    font-weight: 700;
+
+		    transition: 0.2s ease;
+
+		}
+
+		.btn-adicionar-produto:hover:not(:disabled) {
+
+		    background: var(--madeira);
+
+		}
+
+		.btn-adicionar-produto:disabled {
+
+		    opacity: 0.45;
+
+		    cursor: not-allowed;
+
+		}
+
+		.produto-whatsapp {
+
+		    width: 100%;
+
+		    min-height: 56px;
+
+		    display: flex;
+
+		    align-items: center;
+
+		    justify-content: center;
+
+		    gap: 10px;
+
+		    margin-top: 12px;
+
+		    background: var(--verde);
+
+		    color: white;
+
+		    font-weight: 700;
+
+		}
+
+		.produto-whatsapp:hover {
+
+		    background: #136c43;
+
+		    color: white;
+
+		}
+
+		.produto-detalhe-beneficios {
+
+		    margin-top: 34px;
+
+		    padding-top: 26px;
+
+		    border-top: 1px solid rgba(75, 48, 32, 0.12);
+
+		}
+
+		.produto-detalhe-beneficios div {
+
+		    display: flex;
+
+		    align-items: center;
+
+		    gap: 11px;
+
+		    margin-bottom: 15px;
+
+		    color: var(--texto-claro);
+
+		}
+
+		.produto-detalhe-beneficios i {
+
+		    color: var(--dourado);
+
+		    font-size: 1.15rem;
+
+		}
+
+		@media (max-width: 991px) {
+
+		    .produto-detalhe {
+
+		        padding: 60px 0 85px;
+
+		    }
+
+		    .produto-detalhe-imagem,
+
+		    .produto-detalhe-imagem img {
+
+		        min-height: 480px;
+
+		        height: 480px;
+
+		    }
+
+		}
+
+		@media (max-width: 767px) {
+
+		    .produto-detalhe-imagem,
+
+		    .produto-detalhe-imagem img {
+
+		        min-height: 360px;
+
+		        height: 360px;
+
+		    }
+
+		    .produto-detalhe-conteudo h1 {
+
+		        font-size: 2.2rem;
+
+		    }
+
+		}
+
+			/* =========================================================
+
+			   GALERIA - DETALHE DO PRODUTO
+
+			========================================================= */
+
+			.produto-galeria {
+
+			    display: flex;
+
+			    gap: 16px;
+
+			    width: 100%;
+
+			    align-items: flex-start;
+
+			}
+
+
+			/* COLUNA DAS MINIATURAS */
+
+			.produto-miniaturas {
+
+			    width: 82px;
+
+			    flex: 0 0 82px;
+
+			    display: flex;
+
+			    flex-direction: column;
+
+			    gap: 10px;
+
+			}
+
+
+			/* BOTÃO DA MINIATURA */
+
+			.produto-miniaturas .miniatura {
+
+			    display: block;
+
+			    width: 82px;
+
+			    height: 82px;
+
+			    padding: 0;
+
+			    margin: 0;
+
+			    border: 1px solid #d7cfc7;
+
+			    background: #fff;
+
+			    overflow: hidden;
+
+			    cursor: pointer;
+
+			}
+
+
+			/* IMAGEM DENTRO DA MINIATURA */
+
+			.produto-miniaturas .miniatura img {
+
+			    display: block;
+
+			    width: 100%;
+
+			    height: 100%;
+
+			    object-fit: cover;
+
+			}
+
+
+			/* MINIATURA SELECIONADA */
+
+			.produto-miniaturas .miniatura.ativa {
+
+			    border: 2px solid var(--dourado);
+
+			}
+
+
+			/* IMAGEM GRANDE */
+
+			.produto-galeria .produto-detalhe-imagem {
+
+			    position: relative;
+
+			    flex: 1;
+
+			    width: auto;
+
+			    height: 600px;
+
+			    min-height: 0;
+
+			    overflow: hidden;
+
+			}
+
+
+			/* MUITO IMPORTANTE:
+
+			   limita somente a imagem principal */
+
+			.produto-galeria .produto-detalhe-imagem > img {
+
+			    display: block;
+
+			    width: 100%;
+
+			    height: 100%;
+
+			    object-fit: cover;
+
+			}
+
+
+			/* CELULAR */
+
+			@media (max-width: 767px) {
+
+			    .produto-galeria {
+
+			        flex-direction: column-reverse;
+
+			    }
+
+			    .produto-miniaturas {
+
+			        width: 100%;
+
+			        flex: none;
+
+			        flex-direction: row;
+
+			        overflow-x: auto;
+
+			    }
+
+			    .produto-miniaturas .miniatura {
+
+			        flex: 0 0 72px;
+
+			        width: 72px;
+
+			        height: 72px;
+
+			    }
+
+			    .produto-galeria .produto-detalhe-imagem {
+
+			        width: 100%;
+
+			        height: 420px;
+
+			    }
+
+			}
+

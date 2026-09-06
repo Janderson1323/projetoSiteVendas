@@ -187,8 +187,8 @@
         <div class="row g-4"
              th:unless="${#lists.isEmpty(produtos)}">
 
-			 <div class="col-sm-6 col-xl-3"
-			      th:each="produto : ${produtos}">
+            <div class="col-sm-6 col-xl-4"
+                 th:each="produto : ${produtos}">
 
                 <article class="produto-vitrine">
 
@@ -245,18 +245,18 @@
                             <div class="produto-preco-catalogo">
                                 <span>A partir de</span>
 
-                                <strong>
-                                    R$
-                                    <span th:text="${#numbers.formatDecimal(
-                                        produto.preco,
-                                        1,
-                                        'POINT',
-                                        2,
-                                        'COMMA'
-                                    )}">
-                                        0,00
-                                    </span>
-                                </strong>
+								<strong>
+								    R$ <span class="valor"
+								              th:text="${#numbers.formatDecimal(
+								                  produto.preco,
+								                  1,
+								                  'POINT',
+								                  2,
+								                  'COMMA'
+								              )}">
+								        0,00
+								    </span>
+								</strong>
                             </div>
 
                             <div class="produto-estoque">

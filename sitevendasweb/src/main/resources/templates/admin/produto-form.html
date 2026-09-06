@@ -1,70 +1,248 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Produto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Cadastrar / Editar Produto</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
 </head>
+
 <body class="bg-light">
 
 <div class="container py-5">
 
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
+
+        <div class="col-md-9 col-lg-7">
 
             <div class="card shadow-sm">
+
                 <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Cadastrar / Editar Produto</h3>
+
+                    <h3 class="mb-0">
+                        Cadastrar / Editar Produto
+                    </h3>
+
                 </div>
 
+
                 <div class="card-body">
-                    <form th:action="@{/admin/produtos/salvar}" th:object="${produto}" method="post">
 
-                        <input type="hidden" th:field="*{id}">
+                    <form th:action="@{/admin/produtos/salvar}"
+                          th:object="${produto}"
+                          method="post">
+
+                        <!-- ID -->
+                        <input type="hidden"
+                               th:field="*{id}">
+
+
+                        <!-- NOME -->
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Nome
+                            </label>
+
+                            <input type="text"
+                                   th:field="*{nome}"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+
+                        <!-- DESCRIÇÃO -->
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Descrição
+                            </label>
+
+                            <textarea th:field="*{descricao}"
+                                      class="form-control"
+                                      rows="4">
+                            </textarea>
+
+                        </div>
+
+
+                        <!-- PREÇO -->
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Preço
+                            </label>
+
+                            <input type="number"
+                                   step="0.01"
+                                   min="0"
+                                   th:field="*{preco}"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+
+                        <!-- ESTOQUE -->
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Estoque
+                            </label>
+
+                            <input type="number"
+                                   min="0"
+                                   th:field="*{estoque}"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+
+                        <hr class="my-4">
+
+
+                        <!-- IMAGEM PRINCIPAL -->
+                        <h5 class="mb-3">
+                            Imagens do produto
+                        </h5>
 
                         <div class="mb-3">
-                            <label class="form-label">Nome</label>
-                            <input type="text" th:field="*{nome}" class="form-control">
+
+                            <label class="form-label">
+                                Imagem principal
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{imagemUrl}"
+                                   placeholder="/img/tapete-principal.jpg">
+
+                            <div class="form-text">
+                                Essa imagem será usada no catálogo como foto principal.
+                            </div>
+
                         </div>
 
+
+                        <!-- IMAGEM ADICIONAL 1 -->
                         <div class="mb-3">
-                            <label class="form-label">Descrição</label>
-                            <input type="text" th:field="*{descricao}" class="form-control">
+
+                            <label class="form-label">
+                                Imagem adicional 1
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   name="imagens"
+                                   th:value="${produto.imagens != null and produto.imagens.size() > 0
+                                       ? produto.imagens[0]
+                                       : ''}"
+                                   placeholder="/img/tapete-foto-2.jpg">
+
                         </div>
 
+
+                        <!-- IMAGEM ADICIONAL 2 -->
                         <div class="mb-3">
-                            <label class="form-label">Preço</label>
-                            <input type="number" step="0.01" th:field="*{preco}" class="form-control">
+
+                            <label class="form-label">
+                                Imagem adicional 2
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   name="imagens"
+                                   th:value="${produto.imagens != null and produto.imagens.size() > 1
+                                       ? produto.imagens[1]
+                                       : ''}"
+                                   placeholder="/img/tapete-foto-3.jpg">
+
                         </div>
 
+
+                        <!-- IMAGEM ADICIONAL 3 -->
                         <div class="mb-3">
-                            <label class="form-label">Estoque</label>
-                            <input type="number" th:field="*{estoque}" class="form-control">
-                        </div>
-						
-						<div class="mb-3">
-						    <label>Imagem URL</label>
-						    <input type="text"
-						           class="form-control"
-						           th:field="*{imagemUrl}"
-						           placeholder="Cole aqui o link da imagem">
-						</div>
 
-                        <div class="form-check mb-4">
-                            <input type="checkbox" th:field="*{ativo}" class="form-check-input">
-                            <label class="form-check-label">Ativo</label>
+                            <label class="form-label">
+                                Imagem adicional 3
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   name="imagens"
+                                   th:value="${produto.imagens != null and produto.imagens.size() > 2
+                                       ? produto.imagens[2]
+                                       : ''}"
+                                   placeholder="/img/tapete-foto-4.jpg">
+
                         </div>
 
+
+                        <!-- IMAGEM ADICIONAL 4 -->
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Imagem adicional 4
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   name="imagens"
+                                   th:value="${produto.imagens != null and produto.imagens.size() > 3
+                                       ? produto.imagens[3]
+                                       : ''}"
+                                   placeholder="/img/tapete-foto-5.jpg">
+
+                        </div>
+
+
+                        <!-- ATIVO -->
+                        <div class="form-check mb-4 mt-4">
+
+                            <input type="checkbox"
+                                   th:field="*{ativo}"
+                                   class="form-check-input">
+
+                            <label class="form-check-label">
+                                Produto ativo
+                            </label>
+
+                        </div>
+
+
+                        <!-- BOTÕES -->
                         <div class="d-flex justify-content-between">
-                            <a href="/admin/produtos" class="btn btn-secondary">Voltar</a>
-                            <button type="submit" class="btn btn-success">Salvar</button>
+
+                            <a href="/admin/produtos"
+                               class="btn btn-secondary">
+                                Voltar
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-success">
+                                Salvar
+                            </button>
+
                         </div>
 
                     </form>
+
                 </div>
+
             </div>
 
         </div>
+
     </div>
 
 </div>
